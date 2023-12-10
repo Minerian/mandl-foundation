@@ -1,0 +1,156 @@
+.navigation {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 1rem 0;
+  background-color: var(--white-color);
+}
+
+.navigation > div {
+  background-color: var(--white-color);
+  border-bottom: 0.1rem solid var(--light-gray-color);
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation img {
+  height: 2.5rem;
+}
+
+.hamburgerMenu {
+  position: relative;
+}
+
+.hamburgerIcon {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  position: relative;
+}
+
+.hamburgerIcon span {
+  width: 3rem;
+  height: 0.2rem;
+  background-color: var(--black-color);
+  transition: 0.5s ease-in-out;
+  position: absolute;
+  right: 0;
+  transform-origin: center;
+}
+
+.hamburgerIcon span:nth-child(1) {
+  transform: translateY(0.6rem);
+}
+
+.hamburgerIcon span:nth-child(3) {
+  transform: translateY(-0.6rem);
+}
+
+.open span:nth-child(1) {
+  transform: rotate(-45deg) translate(0);
+}
+
+.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.open span:nth-child(3) {
+  transform: rotate(45deg) translate(0);
+}
+
+.menuItems {
+  position: fixed;
+  transition: 0.5s ease-in-out;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--white-color);
+  padding: 2rem 0;
+  padding-top: 6.1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.itemsGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.item {
+  padding-bottom: 1.6rem;
+  border-bottom: 1px solid var(--Light-grey, #ececec);
+}
+
+.itemRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 3rem;
+}
+
+.buttons > div {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
+  justify-content: center;
+}
+
+.buttons > div:nth-child(2) {
+  background-color: var(--light-gray-color);
+  color: var(--black-color);
+}
+
+.dropdownBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.8rem 0rem;
+}
+
+.dropdownItem {
+  padding: 0.4rem 0rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.navBottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+.navBottomSocials {
+  margin-top: 1.6rem;
+  display: flex;
+  gap: 1.6rem;
+  color: #767676;
+}
+
+@media (max-width: 810px) {
+  .navigation {
+    display: flex;
+  }
+}
+
+@media (max-width: 500px) {
+}

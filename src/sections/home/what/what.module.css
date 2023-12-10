@@ -1,0 +1,109 @@
+.section {
+  margin-bottom: 18rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2.4rem;
+}
+
+.cards > .card:nth-child(1) {
+  background-image: url(../../../assets/images/medicineCard.png);
+}
+
+.cards > .card:nth-child(2) {
+  background-image: url(../../../assets/images/educationCard.png);
+}
+
+.cards > .card:nth-child(3) {
+  background-image: url(../../../assets/images/aidCard.png);
+}
+
+.card {
+  background-position: center;
+  background-size: cover;
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 0.8rem;
+  border: 2px solid var(--light-gray-color);
+
+  box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.04);
+}
+
+.cardTitle {
+  font-size: 2rem;
+  margin-bottom: 2.2rem;
+}
+
+.cardItem {
+  color: #767676;
+  padding: 0.8rem;
+  box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--light-gray-color);
+  border-radius: 0.8rem;
+  margin-bottom: 0.8rem;
+  background-color: var(--white-color);
+  width: max-content;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card img {
+  width: 22rem;
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+}
+
+.card > div:last-child {
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+
+@media (max-width: 810px) {
+  .cards {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+
+  .cards > .card:nth-child(1) {
+    background-image: url(../../../assets/images/medicineCard2.png);
+  }
+
+  .cards > .card:nth-child(2) {
+    background-image: url(../../../assets/images/educationCard2.png);
+  }
+
+  .cards > .card:nth-child(3) {
+    background-image: url(../../../assets/images/aidCard2.png);
+  }
+
+  .card > div:last-child {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .section {
+    margin-bottom: 8rem;
+  }
+
+  .card img {
+    width: 15rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .cards > .card:nth-child(3) {
+    background-image: url(../../../assets/images/aidCard3.png);
+  }
+}

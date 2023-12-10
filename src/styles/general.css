@@ -1,0 +1,87 @@
+/* Font Import */
+@font-face {
+  font-family: Satoshi;
+  src: url("../assets/font/Satoshi-Regular.otf");
+}
+
+@font-face {
+  font-family: Satoshi;
+  src: url("../assets/font/Satoshi-Medium.otf");
+  font-weight: 500;
+}
+
+/* Variable */
+:root {
+  --brand-color: #88acb2;
+  --white-color: #f9f9f9;
+  --light-gray-color: #ececec;
+  --black-color: #1a1a1a;
+
+  --text-size: 500 1.6rem Satoshi;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Satoshi;
+  line-height: 131%;
+}
+
+html {
+  font-size: 0.694vw;
+}
+
+body {
+  font: var(--text-size);
+  color: var(--black-color);
+
+  background-color: var(--white-color);
+}
+
+h2 {
+  margin-bottom: 2.4rem;
+  font-size: 4.8rem;
+}
+
+@media (min-width: 1440px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+.container,
+section {
+  max-width: 128rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 810px) {
+  html {
+    font-size: 10px;
+  }
+
+  .container,
+  section {
+    max-width: 100%;
+    margin-left: 4rem;
+    margin-right: 4rem;
+  }
+
+  h2 {
+    font-size: 3.6rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .container,
+  section {
+    max-width: 100%;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  h2 {
+    font-size: 2.4rem;
+  }
+}
