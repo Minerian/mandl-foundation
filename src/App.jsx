@@ -12,9 +12,9 @@ import FrontLayout from "./layout/frontLayout";
 import Faq from "./screens/faq";
 import Blog from "./screens/blog";
 
-const router = createHashRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/">
+    <Route path="/mandl_frontend/">
       <Route
         index
         element={
@@ -24,7 +24,7 @@ const router = createHashRouter(
         }
       />
       <Route
-        path="about"
+        path="/mandl_frontend/about"
         element={
           <FrontLayout>
             <About />
@@ -32,7 +32,7 @@ const router = createHashRouter(
         }
       />
       <Route
-        path="faq"
+        path="/mandl_frontend/faq"
         element={
           <FrontLayout>
             <Faq />
@@ -40,7 +40,7 @@ const router = createHashRouter(
         }
       />
       <Route
-        path="blog"
+        path="/mandl_frontend/blog"
         element={
           <FrontLayout>
             <Blog />
