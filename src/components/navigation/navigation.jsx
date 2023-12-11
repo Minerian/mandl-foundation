@@ -20,21 +20,21 @@ const Navigation = () => {
     <div className={` ${styles.navigation}`}>
       <div className="container">
         <div className={styles.logo}>
-          <Link to={"/mandl_frontend/"}>
+          <Link to={"/"}>
             <img src={Logo} alt="" />
           </Link>
         </div>
 
         <div className={styles.items}>
           <div className={styles.navItem}>
-            <Link to={"/mandl_frontend/about"}>About foundatiion</Link>
+            <Link to={"/about"}>About foundatiion</Link>
           </div>
           <div
             className={styles.navItem}
             onMouseEnter={() => setShow(true)}
             onMouseLeave={() => setShow(false)}
           >
-            <Link to={"/mandl_frontend/blog"}>
+            <Link to={"/blog"}>
               Research{" "}
               <svg
                 style={{ transform: show ? "rotate(180deg)" : "rotate(0deg)" }}
@@ -58,10 +58,10 @@ const Navigation = () => {
             </Link>
           </div>
           <div className={styles.navItem}>
-            <Link to={"/mandl_frontend/blog"}>Partners</Link>
+            <Link to={"/blog"}>Partners</Link>
           </div>
           <div className={styles.navItem}>
-            <Link to={"/mandl_frontend/faq"}>Frequent Questions</Link>
+            <Link to={"/faq"}>Frequent Questions</Link>
           </div>
         </div>
 

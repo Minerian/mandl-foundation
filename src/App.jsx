@@ -14,7 +14,7 @@ import Blog from "./screens/blog";
 
 const router = createHashRouter(
   createRoutesFromElements(
-    <Route path="/mandl_frontend/">
+    <Route path="/">
       <Route
         index
         element={
@@ -24,7 +24,7 @@ const router = createHashRouter(
         }
       />
       <Route
-        path="/mandl_frontend/about"
+        path="/about"
         element={
           <FrontLayout>
             <About />
@@ -32,7 +32,7 @@ const router = createHashRouter(
         }
       />
       <Route
-        path="/mandl_frontend/faq"
+        path="/faq"
         element={
           <FrontLayout>
             <Faq />
@@ -40,7 +40,7 @@ const router = createHashRouter(
         }
       />
       <Route
-        path="/mandl_frontend/blog"
+        path="/blog"
         element={
           <FrontLayout>
             <Blog />
