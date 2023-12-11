@@ -1,4 +1,4 @@
-import InvolvedBox from "../sections/InvolvedBox/InvolvedBox";
+import InvolvedBox from "../sections/involvedBox/involvedBox";
 import BlogSlider from "../sections/blogSlider/blogSlider";
 import Logos from "../sections/home/logos/logos";
 
