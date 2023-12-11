@@ -1,7 +1,7 @@
 import {
   Route,
   Routes, // Change from createRoutesFromElements to Routes
-  BrowserRouter as Router, // Use BrowserRouter instead of createBrowserRouter
+  HashRouter as Router, // Use BrowserRouter instead of createBrowserRouter
 } from "react-router-dom";
 import About from "./screens/about";
 import Home from "./screens/home";
