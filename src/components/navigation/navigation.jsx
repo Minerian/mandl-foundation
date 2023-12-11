@@ -61,7 +61,7 @@ const Navigation = () => {
             <Link to={"/mandl_frontend/blog"}>Partners</Link>
           </div>
           <div className={styles.navItem}>
-            <Link to="/mandl_frontend/faq">Frequent Questions</Link>
+            <Link to={"/mandl_frontend/faq"}>Frequent Questions</Link>
           </div>
         </div>
 
