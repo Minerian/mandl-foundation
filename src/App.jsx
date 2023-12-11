@@ -13,7 +13,7 @@ import Blog from "./screens/blog";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/">
+    <Route path="/mandl_frontend">
       <Route
         index
         element={
