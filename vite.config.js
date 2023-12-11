@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig(() => {
   const config = {
     plugins: [react()],
-    base: "/",
+    base: "/mandl_frontend/",
   };
 
   return config;
