@@ -1,0 +1,24 @@
+.blogSlider {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2.4rem;
+
+  padding: 3.2rem 0;
+}
+
+@media (max-width: 810px) {
+  .blogSlider {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .blogSlider {
+    grid-template-columns: 1fr;
+    padding-top: 0;
+  }
+
+  .blogSlider > div {
+    max-width: 100% !important;
+  }
+}

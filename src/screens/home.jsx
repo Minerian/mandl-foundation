@@ -12,6 +12,8 @@ import Logo7 from "../assets/logos/logo7.svg";
 import Logo8 from "../assets/logos/logo8.svg";
 import What from "../sections/home/what/what";
 import About from "../sections/home/about/about";
+import BlogSlider from "../sections/blogSlider/blogSlider";
+import InvolvedBox from "../sections/InvolvedBox/InvolvedBox";
 
 const content1 = [Logo1, Logo2, Logo3, Logo4];
 const content2 = [Logo5, Logo6, Logo7, Logo8];
@@ -25,6 +27,10 @@ const Home = () => {
       <What />
       <About />
       <Logos title={"Media about us"} list={content2} />
+
+      <BlogSlider />
+
+      <InvolvedBox />
     </div>
   );
 };
