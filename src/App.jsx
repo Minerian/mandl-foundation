@@ -12,7 +12,7 @@ import FrontLayout from "./layout/frontLayout";
 import Faq from "./screens/faq";
 import Blog from "./screens/blog";
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromElements(
     <Route path="/mandl_frontend/">
       <Route
@@ -54,9 +54,7 @@ const router = createBrowserRouter(
 function App() {
   return (
     <>
-      {/* <RouterProvider router={router} /> */}
-
-      <Home />
+      <RouterProvider router={router} />
     </>
   );
 }
