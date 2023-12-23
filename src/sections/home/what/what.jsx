@@ -2,6 +2,7 @@ import Button from "../../../components/button/button";
 import styles from "./what.module.css";
 
 import ImageCard1 from "../../../assets/images/medicinePeople.png";
+import { Link } from "react-router-dom";
 
 const What = () => {
   const checkMark = (
@@ -35,21 +36,23 @@ const What = () => {
             <img src={ImageCard1} alt="" />
           </div>
 
-          <Button>
-            Read more{" "}
-            <svg
-              width="18"
-              height="19"
-              viewBox="0 0 18 19"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.27869 5L6.22119 6.0575L9.65619 9.5L6.22119 12.9425L7.27869 14L11.7787 9.5L7.27869 5Z"
-                fill="#F5F5F5"
-              />
-            </svg>
-          </Button>
+          <Link to="/medicine">
+            <Button>
+              Read more{" "}
+              <svg
+                width="18"
+                height="19"
+                viewBox="0 0 18 19"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.27869 5L6.22119 6.0575L9.65619 9.5L6.22119 12.9425L7.27869 14L11.7787 9.5L7.27869 5Z"
+                  fill="#F5F5F5"
+                />
+              </svg>
+            </Button>
+          </Link>
         </div>
         <div className={styles.card}>
           <div>
@@ -69,41 +72,44 @@ const What = () => {
               {checkMark} Teacher Training Programs
             </div>
           </div>
-
-          <Button>
-            Read more{" "}
-            <svg
-              width="18"
-              height="19"
-              viewBox="0 0 18 19"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.27869 5L6.22119 6.0575L9.65619 9.5L6.22119 12.9425L7.27869 14L11.7787 9.5L7.27869 5Z"
-                fill="#F5F5F5"
-              />
-            </svg>
-          </Button>
+          <Link to="/education">
+            <Button>
+              Read more{" "}
+              <svg
+                width="18"
+                height="19"
+                viewBox="0 0 18 19"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.27869 5L6.22119 6.0575L9.65619 9.5L6.22119 12.9425L7.27869 14L11.7787 9.5L7.27869 5Z"
+                  fill="#F5F5F5"
+                />
+              </svg>
+            </Button>
+          </Link>
         </div>
         <div className={styles.card}>
           <div className={styles.cardTitle}>Humanitarian aid</div>
 
-          <Button>
-            Read more{" "}
-            <svg
-              width="18"
-              height="19"
-              viewBox="0 0 18 19"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.27869 5L6.22119 6.0575L9.65619 9.5L6.22119 12.9425L7.27869 14L11.7787 9.5L7.27869 5Z"
-                fill="#F5F5F5"
-              />
-            </svg>
-          </Button>
+          <Link to="/humanitarian-aid">
+            <Button>
+              Read more{" "}
+              <svg
+                width="18"
+                height="19"
+                viewBox="0 0 18 19"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.27869 5L6.22119 6.0575L9.65619 9.5L6.22119 12.9425L7.27869 14L11.7787 9.5L7.27869 5Z"
+                  fill="#F5F5F5"
+                />
+              </svg>
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

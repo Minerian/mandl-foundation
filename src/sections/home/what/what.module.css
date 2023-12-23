@@ -59,7 +59,7 @@
   margin-bottom: 4rem;
 }
 
-.card > div:last-child {
+.card > a > div {
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
 }
@@ -82,7 +82,7 @@
     background-image: url(../../../assets/images/aidCard2.png);
   }
 
-  .card > div:last-child {
+  .card > a > div {
     width: 100%;
     text-align: center;
     justify-content: center;

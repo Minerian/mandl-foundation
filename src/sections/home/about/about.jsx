@@ -6,6 +6,7 @@ import Image1 from "../../../assets/images/aboutSlider1.png";
 import Image2 from "../../../assets/images/aboutSlider2.png";
 import Image3 from "../../../assets/images/aboutSlider2.png";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 let i = 0;
 
@@ -112,7 +113,9 @@ const About = () => {
       <div className={`container ${styles.sectionTop}`}>
         <h2>About Foundation</h2>
 
-        <Button>More about us</Button>
+        <Link to="/about">
+          <Button>More about us</Button>
+        </Link>
       </div>
 
       <div className={styles.imageSliderWrapper}>

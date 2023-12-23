@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Logo from "../../assets/logo.svg";
 
 import styles from "./footer.module.css";
@@ -14,11 +15,21 @@ const Footer = () => {
 
         <div className={styles.footerRight}>
           <div className={styles.item}>
-            <div className={styles.itemTitle}>About us</div>
-            <div className={styles.itemText}>Partners</div>
-            <div className={styles.itemText}>Blog</div>
-            <div className={styles.itemText}>Partnership</div>
-            <div className={styles.itemText}>FAQ</div>
+            <Link to="/about" className={styles.itemTitle}>
+              About us
+            </Link>
+            <Link to="/partners" className={styles.itemText}>
+              Partners
+            </Link>
+            <Link to="/blog" className={styles.itemText}>
+              Blog
+            </Link>
+            <Link to="/partners" className={styles.itemText}>
+              Partnership
+            </Link>
+            <Link to="/faq" className={styles.itemText}>
+              FAQ
+            </Link>
           </div>
           <div className={styles.item}>
             <div className={styles.itemTitle}>Social</div>

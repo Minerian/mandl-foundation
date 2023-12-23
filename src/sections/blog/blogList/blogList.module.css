@@ -6,6 +6,10 @@
   padding: 3.2rem 0;
 }
 
+.blogSlider > a {
+  width: 100% !important;
+}
+
 @media (max-width: 810px) {
   .blogSlider {
     grid-template-columns: 1fr 1fr;

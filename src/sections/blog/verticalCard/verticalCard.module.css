@@ -30,7 +30,7 @@
   flex-direction: column;
 }
 
-.cardLeft > div:last-child {
+.cardLeft > a > div {
   padding: 0.8rem 1.2rem !important;
 }
 

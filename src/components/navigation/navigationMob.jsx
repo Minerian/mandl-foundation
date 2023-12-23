@@ -7,6 +7,7 @@ import DropAll from "../../assets/icons/dropAll.svg";
 import DropEducation from "../../assets/icons/dropEducation.svg";
 import DropMedicine from "../../assets/icons/dropMedicine.svg";
 import DropAid from "../../assets/icons/dropAid.svg";
+import { Link } from "react-router-dom";
 
 const NavigationMob = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,10 +41,14 @@ const NavigationMob = () => {
         <div className="container">
           <div className={styles.buttons}>
             <Button>Become a partner</Button>
-            <Button>Login</Button>
+            <Link to="/login">
+              <Button>Login</Button>
+            </Link>
           </div>
           <div className={styles.itemsGroup}>
-            <div className={styles.item}>About foundatiion</div>
+            <Link to="/about" className={styles.item}>
+              About foundatiion
+            </Link>
             <div className={styles.item}>
               <div
                 className={styles.itemRow}
@@ -69,27 +74,43 @@ const NavigationMob = () => {
 
               {show && (
                 <div className={styles.dropdownBody}>
-                  <div className={styles.dropdownItem}>
+                  <Link to="/blog" className={styles.dropdownItem}>
                     <img src={DropAll} />
                     <div>All</div>
-                  </div>
-                  <div className={styles.dropdownItem}>
+                  </Link>
+                  <Link
+                    to={{ pathname: "/blog" }}
+                    state={{ type: "Education" }}
+                    className={styles.dropdownItem}
+                  >
                     <img src={DropEducation} />
                     <div>Education</div>
-                  </div>
-                  <div className={styles.dropdownItem}>
+                  </Link>
+                  <Link
+                    to={{ pathname: "/blog" }}
+                    state={{ type: "Medicine" }}
+                    className={styles.dropdownItem}
+                  >
                     <img src={DropMedicine} />
                     <div>Medicine</div>
-                  </div>
-                  <div className={styles.dropdownItem}>
+                  </Link>
+                  <Link
+                    to={{ pathname: "/blog" }}
+                    state={{ type: "Humanitarian aid" }}
+                    className={styles.dropdownItem}
+                  >
                     <img src={DropAid} />
                     <div>Humanitarian aid</div>
-                  </div>
+                  </Link>
                 </div>
               )}
             </div>
-            <div className={styles.item}>Partners</div>
-            <div className={styles.item}>Frequent Questions</div>
+            <Link to="/partners" className={styles.item}>
+              Partners
+            </Link>
+            <Link to="/faq" className={styles.item}>
+              Frequent Questions
+            </Link>
           </div>
           <div className={styles.navBottom}>
             <div className={styles.navBottomLeft}>

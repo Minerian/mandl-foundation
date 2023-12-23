@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./blogHero.module.css";
 
 const content = ["All", "Medicine", "Education", "Humanitarian aid"];
 
-const BlogHero = () => {
-  const [activeButton, setActiveButton] = useState(0);
+const BlogHero = ({ fetch, type = "All" }) => {
+  const [activeButton, setActiveButton] = useState();
+
+  useEffect(() => {
+    setActiveButton(type);
+  }, []);
 
   return (
     <div className={styles.section}>
@@ -17,9 +21,12 @@ const BlogHero = () => {
       <div className={styles.buttons}>
         {content.map((item, index) => (
           <div
-            onClick={() => setActiveButton(index)}
+            onClick={() => {
+              setActiveButton(item);
+              fetch(item);
+            }}
             key={index}
-            className={`${activeButton === index ? styles.active : ""}`}
+            className={`${activeButton === item ? styles.active : ""}`}
           >
             {item}
           </div>

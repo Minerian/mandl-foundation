@@ -11,6 +11,9 @@ import "./styles/general.css";
 import FrontLayout from "./layout/frontLayout";
 import Faq from "./screens/faq";
 import Blog from "./screens/blog";
+import BlogPost from "./screens/blogPost";
+import Login from "./screens/login";
+import CategoryTemplate from "./screens/categoryTemplate";
 
 const router = createHashRouter(
   createRoutesFromElements(
@@ -47,6 +50,39 @@ const router = createHashRouter(
           </FrontLayout>
         }
       />
+      <Route
+        path="/blog/:post"
+        element={
+          <FrontLayout>
+            <BlogPost />
+          </FrontLayout>
+        }
+      />
+      <Route
+        path="/medicine"
+        element={
+          <FrontLayout>
+            <CategoryTemplate type="medicine" />
+          </FrontLayout>
+        }
+      />
+      <Route
+        path="/education"
+        element={
+          <FrontLayout>
+            <CategoryTemplate type="education" />
+          </FrontLayout>
+        }
+      />
+      <Route
+        path="/humanitarian-aid"
+        element={
+          <FrontLayout>
+            <CategoryTemplate type="aid" />
+          </FrontLayout>
+        }
+      />
+      <Route path="/login" element={<Login />} />
     </Route>
   )
 );

@@ -1,0 +1,146 @@
+.section {
+  margin-top: 12rem;
+  margin-bottom: 10rem;
+}
+
+.top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.left p {
+  max-width: 50rem;
+  font-size: 2rem;
+  color: #767676;
+}
+
+.right {
+  display: flex;
+  gap: 1rem;
+}
+
+.right svg {
+  cursor: pointer;
+}
+
+.right svg:first-child {
+  transform: rotate(180deg);
+}
+
+.contentWrapper {
+  overflow: scroll;
+  scroll-behavior: smooth;
+}
+
+.contentWrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.content {
+  margin-top: 6.4rem;
+  display: flex;
+  width: max-content;
+  overflow: scroll;
+}
+
+.item {
+  width: 63rem;
+}
+
+.item h3 {
+  font-size: 3.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.desc {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 3.2rem;
+
+  padding-right: 2rem;
+}
+
+.content p {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.line {
+  height: 2px;
+  background-color: var(--brand-color);
+  width: 100%;
+  margin-bottom: 3.2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.bar {
+  height: 1.5rem;
+  width: 1px;
+  background-color: var(--brand-color);
+}
+
+.contentWrapper .item:first-child .line {
+  position: relative;
+}
+
+.contentWrapper .item:first-child .line:before {
+  content: "";
+  position: absolute;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-color: var(--brand-color);
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  transform: translateY(-47%);
+}
+
+@media (max-width: 810px) {
+  .section {
+    margin-top: 3.2rem;
+    margin-bottom: 3.2rem;
+  }
+
+  .item h3 {
+    font-size: 2.4rem;
+  }
+
+  .desc {
+    font-size: 1.6rem !important;
+  }
+
+  .item {
+    max-width: 43rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .item {
+    max-width: 30rem;
+  }
+
+  .item p {
+    font-size: 1.6rem;
+  }
+
+  .content {
+    margin-top: 3.2rem;
+  }
+}
+
+@media (max-width: 810px) {
+  .contentWrapper {
+    padding: 0 4rem !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .contentWrapper {
+    padding: 0 2rem !important;
+  }
+}

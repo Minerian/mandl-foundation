@@ -3,7 +3,7 @@
   position: fixed;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 100;
   padding: 1rem 0;
   background-color: var(--white-color);
 }
@@ -66,7 +66,7 @@
 .menuItems {
   position: fixed;
   transition: 0.5s ease-in-out;
-  z-index: 2;
+  z-index: 99;
   top: 0;
   left: 0;
   right: 0;
@@ -103,7 +103,9 @@
   margin-bottom: 3rem;
 }
 
-.buttons > div {
+.buttons > div,
+.buttons a,
+.buttons a > div {
   width: 100%;
   padding-left: 0;
   padding-right: 0;
@@ -111,7 +113,7 @@
   justify-content: center;
 }
 
-.buttons > div:nth-child(2) {
+.buttons > a > div {
   background-color: var(--light-gray-color);
   color: var(--black-color);
 }
