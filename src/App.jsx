@@ -14,6 +14,7 @@ import Blog from "./screens/blog";
 import BlogPost from "./screens/blogPost";
 import Login from "./screens/login";
 import CategoryTemplate from "./screens/categoryTemplate";
+import Partners from "./screens/partners";
 
 const router = createHashRouter(
   createRoutesFromElements(
@@ -39,6 +40,14 @@ const router = createHashRouter(
         element={
           <FrontLayout>
             <Faq />
+          </FrontLayout>
+        }
+      />
+      <Route
+        path="/partners"
+        element={
+          <FrontLayout>
+            <Partners />
           </FrontLayout>
         }
       />

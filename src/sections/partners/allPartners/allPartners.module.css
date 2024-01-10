@@ -1,0 +1,31 @@
+.section {
+  padding: 8rem 0;
+  position: relative;
+  z-index: 2;
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+}
+
+.section h2 {
+  margin-bottom: 2.6rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+
+  margin-bottom: 2rem;
+}
+
+.row img {
+  width: 100%;
+}
+
+@media (max-width: 810px) {
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
