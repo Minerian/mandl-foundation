@@ -9,14 +9,14 @@ import Logo4 from "../assets/logos/logo4.svg";
 import AboutHero from "../sections/about/aboutHero/aboutHero";
 import AboutUs from "../sections/about/aboutUs/aboutUs";
 
-const content1 = [Logo1, Logo2, Logo3, Logo4];
+const content1 = [Logo1, Logo2, Logo3, Logo4, Logo1, Logo2, Logo3, Logo4];
 
 const About = () => {
   return (
     <div>
       <AboutHero />
 
-      <Logos title={"Recent partners"} list={content1} />
+      <Logos title={""} list={content1} />
 
       <AboutUs />
 

@@ -94,3 +94,57 @@ section {
     font-size: 2.4rem;
   }
 }
+
+/* asda */
+.swiper-pagination {
+  display: flex !important;
+  gap: 1rem !important;
+  padding: 0 3rem;
+  padding-bottom: 2rem;
+}
+
+.swiper-pagination-bullet {
+  height: 0.2rem !important;
+  border-radius: 0 !important;
+  background-color: var(--white-color) !important;
+  opacity: 1 !important;
+  flex: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--brand-color) !important;
+}
+
+/* LOGOS */
+
+.move1,
+.move2 {
+  animation-name: moveLogo;
+  animation-duration: 150s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.move2 {
+  animation-name: moveLogo2;
+}
+
+@keyframes moveLogo {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes moveLogo2 {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}

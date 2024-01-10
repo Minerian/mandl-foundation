@@ -16,6 +16,12 @@
   border-bottom: 0.1rem solid var(--light-gray-color);
 }
 
+.navLeft {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
 @media (max-width: 810px) {
   .navigation {
     display: none;

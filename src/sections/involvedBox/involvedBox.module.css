@@ -15,11 +15,11 @@
   margin-top: 0.8rem;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .bottom p {
-  font-size: 3.2rem;
+  font-size: 2rem;
   width: 45%;
 
   color: #d5d5d5;
@@ -27,7 +27,8 @@
 
 .bottom > div {
   display: flex;
-  gap: 0.8rem;
+
+  gap: 1.5rem;
 }
 
 .bottom > div > div:last-child {

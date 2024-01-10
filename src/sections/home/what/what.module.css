@@ -8,16 +8,20 @@
   gap: 2.4rem;
 }
 
-.cards > .card:nth-child(1) {
+.card1 {
   background-image: url(../../../assets/images/medicineCard.png);
 }
 
-.cards > .card:nth-child(2) {
+.card2 {
   background-image: url(../../../assets/images/educationCard.png);
+
+  height: 100%;
 }
 
-.cards > .card:nth-child(3) {
+.card3 {
   background-image: url(../../../assets/images/aidCard.png);
+
+  height: 100%;
 }
 
 .card {
@@ -70,15 +74,15 @@
     grid-template-rows: 1fr 1fr 1fr;
   }
 
-  .cards > .card:nth-child(1) {
+  .card1 {
     background-image: url(../../../assets/images/medicineCard2.png);
   }
 
-  .cards > .card:nth-child(2) {
+  .card2 {
     background-image: url(../../../assets/images/educationCard2.png);
   }
 
-  .cards > .card:nth-child(3) {
+  .card3 {
     background-image: url(../../../assets/images/aidCard2.png);
   }
 
@@ -103,7 +107,7 @@
     margin-bottom: 2rem;
   }
 
-  .cards > .card:nth-child(3) {
+  .card3 {
     background-image: url(../../../assets/images/aidCard3.png);
   }
 }
