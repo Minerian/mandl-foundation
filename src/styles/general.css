@@ -17,7 +17,7 @@
   --light-gray-color: #ececec;
   --black-color: #1a1a1a;
 
-  --text-size: 500 1.6rem Satoshi;
+  --text-size: 500 1.4rem Satoshi;
 }
 
 * {
@@ -48,7 +48,7 @@ body {
 
 h2 {
   margin-bottom: 2.4rem;
-  font-size: 4.8rem;
+  font-size: 4rem;
   font-weight: 500;
 }
 
