@@ -33,21 +33,28 @@ const Footer = () => {
           </div>
           <div className={styles.item}>
             <div className={styles.itemTitle}>Social</div>
-            <div className={styles.itemText}>Youtube</div>
-            <div className={styles.itemText}>Twitter</div>
-            <div className={styles.itemText}>LinkedIn</div>
+            {/* <div className={styles.itemText}>Youtube</div> */}
+            {/* <div className={styles.itemText}>Twitter</div> */}
+            <div className={styles.itemText}>
+              <a
+                href="https://www.linkedin.com/company/themaindlfoundation"
+                target="_blank"
+              >
+                LinkedIn
+              </a>
+            </div>
           </div>
           <div className={styles.item}>
             <div className={styles.itemTitle}>Contact</div>
-            <div className={styles.itemText}>+38(066)-111-59-21</div>
-            <div className={styles.itemText}>mailmail@gmail.com</div>
+            <div className={styles.itemText}>+35799330721</div>
+            <div className={styles.itemText}>office@maindl.org</div>
           </div>
         </div>
       </div>
 
       <div className={styles.footerBottom}>
         <p>Privacy Policy</p>
-        <p>Terms & Conditions</p>
+        {/* <p>Terms & Conditions</p> */}
         <p>@ 2023 copytighty</p>
       </div>
     </section>

@@ -15,19 +15,20 @@ import About from "../sections/home/about/about";
 import BlogSlider from "../sections/blogSlider/blogSlider";
 import InvolvedBox from "../sections/involvedBox/involvedBox";
 import { API_URL } from "../const/apiUrl";
+import LogosStatic from "../sections/home/logos/logosStatic";
 
-const content1 = [Logo1, Logo2, Logo3, Logo4, Logo1, Logo2, Logo3, Logo4];
-const content2 = [Logo5, Logo6, Logo7, Logo8, Logo5, Logo6, Logo7, Logo8];
+const content1 = [Logo1, Logo2, Logo3, Logo4];
+const content2 = [Logo5, Logo6, Logo7, Logo8];
 
 const Home = () => {
   return (
     <div>
       <Hero />
       <Slider />
-      <Logos title={"Recent partners"} list={content1} />
+      <LogosStatic title={"Recent partners"} list={content1} />
       <What />
       <About />
-      <Logos title={"Media about us"} list={content2} />
+      <LogosStatic title={"Media about us"} list={content2} />
 
       <BlogSlider />
 
