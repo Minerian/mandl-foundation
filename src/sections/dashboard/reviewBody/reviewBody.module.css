@@ -1,0 +1,66 @@
+.editorWrapper {
+  margin: auto;
+  max-width: 85rem;
+  position: relative;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--Light-grey, #ececec);
+  margin-bottom: 1rem;
+}
+
+.header > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.header svg {
+  display: block;
+}
+
+.confirm {
+  display: flex;
+  padding: 0.8rem 1.6rem;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 0.8rem;
+  background: #41bb63;
+  color: white;
+
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.buttons > div {
+  cursor: pointer;
+}
+
+.editorWrapper p {
+  margin: 0.4rem 0;
+}
+
+.editorWrapper ol {
+  padding: 0.5rem 0;
+}
+
+.editorWrapper li {
+  margin: 0.5rem 5rem;
+}
+
+.editorWrapper img {
+  width: 100%;
+  margin: 0.4rem 0;
+}

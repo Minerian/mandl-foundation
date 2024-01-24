@@ -42,6 +42,8 @@ const LoginBody = () => {
 
       localStorage.setItem("access_token", response.data.access_token);
 
+      console.log(response.data);
+
       navigate("/dashboard");
 
       setIsSubmitting(false);

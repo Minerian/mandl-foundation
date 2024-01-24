@@ -11,7 +11,7 @@ const Partners = () => {
         desc="Spotlighting the Generosity of Partners Supporting Our Mission of Positive Change"
       />
       <PartnersLogo />
-      <AllPartners />
+      {/* <AllPartners /> */}
 
       <InvolvedBox />
     </>

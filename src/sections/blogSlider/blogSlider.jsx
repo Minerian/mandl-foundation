@@ -12,6 +12,8 @@ const BlogSlider = ({ posts }) => {
       try {
         const response = await axios.get(`${API_URL}posts/`);
 
+        console.log(response.data);
+
         setBlogPosts(response.data);
       } catch (error) {
         console.error("Error:", error);

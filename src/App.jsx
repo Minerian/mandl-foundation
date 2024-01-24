@@ -15,6 +15,10 @@ import BlogPost from "./screens/blogPost";
 import Login from "./screens/login";
 import CategoryTemplate from "./screens/categoryTemplate";
 import Partners from "./screens/partners";
+import Dashboard from "./screens/dashboard";
+import DashLayout from "./layout/dashLayout";
+import CreateBlog from "./screens/createBlog";
+import ReviewBlog from "./screens/reviewBlog";
 
 const router = createHashRouter(
   createRoutesFromElements(
@@ -89,6 +93,31 @@ const router = createHashRouter(
           <FrontLayout>
             <CategoryTemplate type="aid" />
           </FrontLayout>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <DashLayout>
+            <Dashboard />
+          </DashLayout>
+        }
+      />
+
+      <Route
+        path="/create-blog"
+        element={
+          <DashLayout>
+            <CreateBlog />
+          </DashLayout>
+        }
+      />
+      <Route
+        path="/review-blog/:post"
+        element={
+          <DashLayout>
+            <ReviewBlog />
+          </DashLayout>
         }
       />
       <Route path="/login" element={<Login />} />

@@ -7,59 +7,36 @@ import { API_URL } from "../const/apiUrl";
 
 import axios from "axios";
 import { useLocation, useParams } from "react-router-dom";
+import ReviewBody from "../sections/dashboard/reviewBody/reviewBody";
 
-const BlogPost = () => {
+const ReviewPost = () => {
   const { post } = useParams();
   const [blogPost, setBlogPost] = useState([]);
-  const [blogPostInfo, setBlogPostInfo] = useState([]);
-  const [blogPosts, setBlogPosts] = useState([]);
 
   const location = useLocation();
   const { pathname } = location;
-
-  const fetchBlogPosts = async () => {
-    const url = `${API_URL}posts/`;
-
-    try {
-      const response = await axios.get(url);
-
-      setBlogPosts(response.data.slice(0, 8));
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
 
   const fetchBlogPost = async () => {
     try {
       const slug = pathname.split("/").pop();
 
       const response = await axios.get(`${API_URL}posts/html/${slug}`);
-      const responseInfo = await axios.get(`${API_URL}posts/post/${slug}`);
 
       setBlogPost(response.data);
-      setBlogPostInfo(responseInfo.data);
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
   useEffect(() => {
-    fetchBlogPosts();
-
     fetchBlogPost();
   }, [post]);
 
   return (
     <section>
-      <BlogPostBody post={blogPost} blogPostInfo={blogPostInfo} />
-
-      <h2>Related articles</h2>
-      <BlogList content={blogPosts} />
-
-      <br />
-      <br />
+      <ReviewBody post={blogPost} />
     </section>
   );
 };
 
-export default BlogPost;
+export default ReviewPost;

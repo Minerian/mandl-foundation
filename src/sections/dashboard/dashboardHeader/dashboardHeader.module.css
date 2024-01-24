@@ -1,0 +1,68 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ececec;
+  padding: 0rem 1.6rem;
+}
+
+.left {
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.leftAdmin {
+  border-right: 1px solid #ececec;
+  width: 27rem;
+}
+
+.logo {
+  height: 2rem;
+}
+
+.profileImage {
+  width: 3.2rem;
+  height: 3.2rem;
+  background-color: red;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.name {
+  font-size: 1.4rem;
+}
+
+.email {
+  font-size: 1.2rem;
+  color: #767676;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.button {
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.6rem;
+
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: #88acb2;
+}
+
+.button2 {
+  background-color: #1a1a1a;
+}
+
+.button svg {
+  display: inline !important;
+}

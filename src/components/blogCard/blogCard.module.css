@@ -1,6 +1,9 @@
 .blogCard {
   padding: 1.2rem;
   border-radius: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 37rem;
   max-width: 100%;
   border: 1px solid #ececec;

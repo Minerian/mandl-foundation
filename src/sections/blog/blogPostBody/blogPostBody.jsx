@@ -1,30 +1,37 @@
 import styles from "./blogPostBody.module.css";
 
 import DefaultUser from "../../../assets/images/default-user.png";
+import { formatDate } from "../../../components/blogCard/blogCard";
 
-const BlogPostBody = ({ post }) => {
+const BlogPostBody = ({ post, blogPostInfo }) => {
   return (
     <div className={`container ${styles.post}`}>
       <div className={styles.blogHeader}>
         <div className={styles.left}>
-          <span>Blog</span> / Multiple Images Exampleeeeeeeee
+          <span>Blog</span> / {blogPostInfo.title}
         </div>
 
         <div className={styles.right}>
           <div className={styles.author}>
             <div className={styles.blogCardAuthorImage}>
               <img
-                src={post.authorImage ? post.authorImage : DefaultUser}
+                src={
+                  blogPostInfo.profile_image_path
+                    ? blogPostInfo.profile_image_path
+                    : DefaultUser
+                }
                 alt=""
               />
             </div>
-            Kyslychenko Mykola
+            {blogPostInfo.author}
           </div>
-          <div className={styles.date}>Oct 17, 2023</div>
+          <div className={styles.date}>
+            {formatDate(blogPostInfo.created_at)}
+          </div>
         </div>
       </div>
 
-      <h2>Multiple Images Exampleeeeeeeee</h2>
+      <h2>{blogPostInfo.title}</h2>
 
       <div dangerouslySetInnerHTML={{ __html: post }} />
 

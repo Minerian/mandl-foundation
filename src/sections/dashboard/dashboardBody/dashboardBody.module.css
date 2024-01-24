@@ -1,0 +1,282 @@
+.body {
+  margin: 3.4rem 2rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 5rem;
+  align-items: center;
+
+  border-bottom: 1px solid #ececec;
+}
+
+.tab {
+  padding-bottom: 1rem;
+  cursor: pointer;
+}
+
+.adminTitle {
+  margin-bottom: -1rem;
+}
+
+.adminBody {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 2rem;
+  padding-left: 1.6rem;
+  height: 100%;
+}
+
+.adminBody .body > div {
+  grid-template-columns: 1fr 1fr 1fr !important;
+}
+
+.adminSide {
+  border-right: 1px solid #ececec;
+  height: 100%;
+  width: 27rem;
+
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+}
+
+.adminProfile {
+  padding: 1.6rem;
+  padding-left: 0;
+  border-top: 1px solid #ececec;
+  cursor: pointer;
+}
+
+.adminSideTop {
+  padding: 1.6rem 0;
+  border-bottom: 1px solid #ececec;
+}
+
+.leaderSide .adminSideTop {
+  padding-top: 0 !important;
+}
+
+.adminSideTop img {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.adminSideTop > div:first-child {
+  font-size: 1.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.adminSideTop > div:last-child {
+  font-size: 1.4rem;
+  color: #767676;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1.6rem;
+  margin-top: 2rem;
+}
+
+.adminRow,
+.groupTitle {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.6rem;
+  padding-left: 0;
+  padding-bottom: 0;
+}
+
+.adminRow svg,
+.groupTitle svg {
+  cursor: pointer;
+}
+
+.adminRow:nth-child(1) {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.groupTitle {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.groupUser {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1.6rem;
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+
+.groupUser .avatar {
+  height: 1.8rem;
+  width: 1.8rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.groupUser img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.groupUser > div {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding-left: 1.6rem;
+}
+
+.userLabel {
+  display: flex;
+  padding: 0.2rem 0.6rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.6rem;
+  background: #eee;
+  color: #767676;
+  width: max-content;
+  margin: 0.8rem 0;
+}
+
+.group {
+  margin-top: 0.8rem;
+}
+
+.groupUser svg {
+  cursor: pointer;
+}
+
+.changeStatus {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start !important;
+  z-index: 2;
+  background-color: white;
+  right: 3rem;
+
+  padding: 1rem !important;
+  gap: 0.6rem !important;
+}
+
+.changeStatus > div {
+  gap: 0.5rem;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+}
+
+.changeStatus > div:last-child {
+  color: #ff5151 !important;
+}
+
+.changeStatus svg {
+  width: 1.3rem;
+}
+
+.teamPopupOverlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.teamPopup {
+  background-color: white;
+  position: relative;
+
+  padding: 2.4rem;
+  border-radius: 0.6rem;
+}
+
+.closePopup {
+  position: absolute;
+  right: 1.6rem;
+  top: 1.6rem;
+  cursor: pointer;
+}
+
+.teamPopup input {
+  width: 36rem;
+
+  display: flex;
+  padding: 1.2rem;
+  align-items: center;
+  gap: 1rem;
+  align-self: stretch;
+  border-radius: 0.8rem;
+  background: #ececec;
+  border: 0px;
+  outline: 0;
+  font-size: 1.4rem;
+}
+
+.popupOptionLabel {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.popupLabel {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 1.6rem;
+}
+
+.imageBox {
+  display: flex;
+  padding: 0.8rem;
+  align-items: center;
+  gap: 1.6rem;
+  margin: 1.2rem 0;
+  border-radius: 0.6rem;
+  border: 1px dashed #ececec;
+  cursor: pointer;
+  width: max-content;
+}
+
+.imageWrapper {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imageBoxInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  font-size: 1.4rem;
+}
+
+.imageBox input {
+  pointer-events: none;
+}
+
+.popupButton {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.popupButton > div {
+}

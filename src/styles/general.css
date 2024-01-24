@@ -20,6 +20,10 @@
   --text-size: 500 1.4rem Satoshi;
 }
 
+#root {
+  min-height: 100vh;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -50,6 +54,22 @@ h2 {
   margin-bottom: 2.4rem;
   font-size: 3.5rem;
   font-weight: 500;
+}
+
+div[data-placeholder="Tell your story..."] {
+  font-size: 2rem;
+}
+
+.ce-block__content,
+.ce-toolbar__content {
+  max-width: calc(100% - 0px) !important;
+}
+.cdx-block {
+  max-width: 100% !important;
+}
+
+.ce-toolbar__plus {
+  transform: translateY(1px);
 }
 
 @media (min-width: 1440px) {
@@ -147,4 +167,10 @@ section {
   to {
     transform: translateX(0%);
   }
+}
+
+.dashboard-body {
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  height: 100vh;
 }
