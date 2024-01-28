@@ -435,7 +435,7 @@ const UserItem = ({ list = [], type, userType, setCreateUser, groupID }) => {
           </div>
         )}
 
-        {userType !== "leader" && (
+        {type !== "leader" && (
           <svg
             onClick={() => setCreateUser(true)}
             width="16"
