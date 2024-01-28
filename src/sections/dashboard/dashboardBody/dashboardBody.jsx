@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./dashboardBody.module.css";
 import BlogCard from "../../../components/blogCard/blogCard";
 import BlogList from "../../blog/blogList/blogList";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { API_URL } from "../../../const/apiUrl";
 import axios from "axios";
 import { UserInfo } from "../dashboardHeader/dashboardHeader";
@@ -24,6 +24,7 @@ const postStatus = [
 const DashboardBody = ({ user, type, setType }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const [group, setGroup] = useState([]);
+  const [allGroup, setAllGroup] = useState([]);
 
   const [groupInfo, setGroupInfo] = useState({});
 
@@ -74,7 +75,17 @@ const DashboardBody = ({ user, type, setType }) => {
             }
           );
 
+          console.log(response.data);
           setGroup(response.data);
+
+          const response2 = await axios.get(`${API_URL}/groups/`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              accept: "application/json",
+            },
+          });
+
+          setAllGroup(response2.data);
         } catch (error) {
           handleError(error);
         }
@@ -87,7 +98,7 @@ const DashboardBody = ({ user, type, setType }) => {
           const accessToken = localStorage.getItem("access_token");
 
           const response = await axios.get(
-            `http://3.79.237.102/groups/${user.group_id}`,
+            `${API_URL}/groups/${user.group_id}`,
             {
               headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -96,6 +107,7 @@ const DashboardBody = ({ user, type, setType }) => {
             }
           );
 
+          console.log(response.data);
           setGroupInfo(response.data);
         } catch (error) {
           console.error("Error retrieving group:", error.response.data);
@@ -106,7 +118,7 @@ const DashboardBody = ({ user, type, setType }) => {
         try {
           const accessToken = localStorage.getItem("access_token");
 
-          const response = await axios.get("http://3.79.237.102/user/", {
+          const response = await axios.get(`${API_URL}/user/`, {
             headers: {
               Authorization: `Bearer ${accessToken}`,
               accept: "application/json",
@@ -163,16 +175,37 @@ const DashboardBody = ({ user, type, setType }) => {
                   />
                 </svg>
               </div>
-              {Object.entries(group).map(([key, values]) => (
-                <Group keyLabel={key} key={key} values={values} type={type} />
-              ))}
+              {Object.entries(group).map(([key, values]) => {
+                const matchingGroup = allGroup.find(
+                  (groupObj) => groupObj.group_name === key
+                );
+
+                if (matchingGroup) {
+                  return (
+                    <Group
+                      keyLabel={key}
+                      key={key}
+                      values={values}
+                      type={type}
+                      groupID={matchingGroup.id}
+                    />
+                  );
+                } else {
+                  return (
+                    <Group
+                      keyLabel={key}
+                      key={key}
+                      values={values}
+                      type={type}
+                      groupID={null} // ili neki podrazumevani ID
+                    />
+                  );
+                }
+              })}
             </div>
 
-            <div
-              className={styles.adminProfile}
-              onClick={() => setType("user")}
-            >
-              <UserInfo user={user} />
+            <div className={styles.adminProfile}>
+              <UserInfo user={user} onClick={() => setType("user")} />
             </div>
           </div>
         )}
@@ -271,95 +304,154 @@ const DashboardBody = ({ user, type, setType }) => {
 
 export default DashboardBody;
 
-const Group = ({ keyLabel, values, type }) => {
+const Group = ({ keyLabel, values, type, groupID }) => {
+  const { handleError } = useErrorContext();
   const [open, setOpen] = useState(false);
 
-  return (
-    <div className={styles.group}>
-      {type === "admin" && (
-        <div
-          className={styles.groupTitle}
-          onClick={() => setOpen((prev) => !prev)}
-        >
-          <div>{keyLabel === "without_group" ? "Without group" : keyLabel}</div>
+  const [createUser, setCreateUser] = useState(false);
 
-          <svg
-            style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
-            width="18"
-            height="19"
-            viewBox="0 0 18 19"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+  const handleDelete = async () => {
+    const token = localStorage.getItem("access_token");
+
+    const headers = {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    try {
+      const response = await axios.delete(`${API_URL}groups/${groupID}`, {
+        headers,
+      });
+
+      window.location.reload();
+    } catch (error) {
+      handleError(error);
+    }
+
+    console.log(keyLabel);
+  };
+
+  return (
+    <>
+      <div className={styles.group}>
+        {type === "admin" && (
+          <div
+            className={styles.groupTitle}
+            onClick={() => setOpen((prev) => !prev)}
           >
-            <path
-              d="M11.9055 6.94643L8.99547 9.85643L6.08547 6.94643C5.79297 6.65393 5.32047 6.65393 5.02797 6.94643C4.73547 7.23893 4.73547 7.71143 5.02797 8.00393L8.47047 11.4464C8.76297 11.7389 9.23547 11.7389 9.52797 11.4464L12.9705 8.00393C13.263 7.71143 13.263 7.23893 12.9705 6.94643C12.678 6.66143 12.198 6.65393 11.9055 6.94643Z"
-              fill="#1A1A1A"
+            <div>
+              {keyLabel === "without_group" ? "Without group" : keyLabel}
+            </div>
+
+            <svg
+              style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+              width="18"
+              height="19"
+              viewBox="0 0 18 19"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.9055 6.94643L8.99547 9.85643L6.08547 6.94643C5.79297 6.65393 5.32047 6.65393 5.02797 6.94643C4.73547 7.23893 4.73547 7.71143 5.02797 8.00393L8.47047 11.4464C8.76297 11.7389 9.23547 11.7389 9.52797 11.4464L12.9705 8.00393C13.263 7.71143 13.263 7.23893 12.9705 6.94643C12.678 6.66143 12.198 6.65393 11.9055 6.94643Z"
+                fill="#1A1A1A"
+              />
+            </svg>
+          </div>
+        )}
+        {(open || type !== "admin") && (
+          <div className={styles.groupList}>
+            <UserItem
+              list={values.filter((value) => value.role === "leader")}
+              userType={"leader"}
+              type={type}
             />
-          </svg>
-        </div>
+            <UserItem
+              list={values.filter((value) => value.role !== "leader")}
+              userType={"Researchers"}
+              type={type}
+              groupID={groupID}
+              setCreateUser={setCreateUser}
+            />
+          </div>
+        )}
+        {open && keyLabel !== "without_group" && (
+          <div className={styles.deleteGroupBtn} onClick={handleDelete}>
+            Delete Group
+          </div>
+        )}
+      </div>
+
+      {createUser && (
+        <CreateUserPopup close={() => setCreateUser(false)} groupID={groupID} />
       )}
-      {(open || type !== "admin") && (
-        <div className={styles.groupList}>
-          <UserItem
-            list={values.filter((value) => value.role === "leader")}
-            userType={"leader"}
-            type={type}
-          />
-          <UserItem
-            list={values.filter((value) => value.role !== "leader")}
-            userType={"Researchers"}
-            type={type}
-          />
-        </div>
-      )}
-    </div>
+    </>
   );
 };
 
-const UserItem = ({ list = [], type, userType }) => {
+const UserItem = ({ list = [], type, userType, setCreateUser, groupID }) => {
   return (
     <>
-      {list.length > 0 && (
-        <div className={styles.userLabel}>
-          {userType === "leader" ? (
-            <>
-              <svg
-                width="10"
-                height="12"
-                viewBox="0 0 10 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4.90667 1.863L4.96 2.123L5.17333 3.19633H8.66667V7.19633H6.42667L6.37333 6.93633L6.16 5.863H1.33333V1.863H4.90667ZM6 0.529663H0V11.863H1.33333V7.19633H5.06667L5.33333 8.52966H10V1.863H6.26667L6 0.529663Z"
-                  fill="#767676"
-                />
-              </svg>
-              Leader
-            </>
-          ) : (
-            <>
-              <svg
-                width="16"
-                height="17"
-                viewBox="0 0 16 17"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2 14.1971H4.5L11.8733 6.82377L9.37333 4.32377L2 11.6971V14.1971ZM3.33333 12.2504L9.37333 6.21043L9.98667 6.82377L3.94667 12.8638H3.33333V12.2504Z"
-                  fill="#767676"
-                />
-                <path
-                  d="M12.2467 2.39043C11.9867 2.13043 11.5667 2.13043 11.3067 2.39043L10.0867 3.61043L12.5867 6.11043L13.8067 4.89043C14.0667 4.63043 14.0667 4.21043 13.8067 3.95043L12.2467 2.39043Z"
-                  fill="#767676"
-                />
-              </svg>
-              Researchers
-            </>
-          )}
-        </div>
-      )}
+      <div className={styles.userCreateRow}>
+        {(list.length > 0 || userType !== "leader") && (
+          <div className={styles.userLabel}>
+            {userType === "leader" ? (
+              <>
+                <svg
+                  width="10"
+                  height="12"
+                  viewBox="0 0 10 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4.90667 1.863L4.96 2.123L5.17333 3.19633H8.66667V7.19633H6.42667L6.37333 6.93633L6.16 5.863H1.33333V1.863H4.90667ZM6 0.529663H0V11.863H1.33333V7.19633H5.06667L5.33333 8.52966H10V1.863H6.26667L6 0.529663Z"
+                    fill="#767676"
+                  />
+                </svg>
+                Leader
+              </>
+            ) : (
+              <>
+                <svg
+                  width="16"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 14.1971H4.5L11.8733 6.82377L9.37333 4.32377L2 11.6971V14.1971ZM3.33333 12.2504L9.37333 6.21043L9.98667 6.82377L3.94667 12.8638H3.33333V12.2504Z"
+                    fill="#767676"
+                  />
+                  <path
+                    d="M12.2467 2.39043C11.9867 2.13043 11.5667 2.13043 11.3067 2.39043L10.0867 3.61043L12.5867 6.11043L13.8067 4.89043C14.0667 4.63043 14.0667 4.21043 13.8067 3.95043L12.2467 2.39043Z"
+                    fill="#767676"
+                  />
+                </svg>
+                Researchers
+              </>
+            )}
+          </div>
+        )}
+
+        {userType !== "leader" && (
+          <svg
+            onClick={() => setCreateUser(true)}
+            width="16"
+            height="17"
+            viewBox="0 0 16 17"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect y="0.696289" width="16" height="16" rx="3" fill="#ECECEC" />
+            <path
+              d="M11.9987 9.36312H8.66536V12.6965C8.66536 13.0631 8.36536 13.3631 7.9987 13.3631C7.63203 13.3631 7.33203 13.0631 7.33203 12.6965V9.36312H3.9987C3.63203 9.36312 3.33203 9.06312 3.33203 8.69645C3.33203 8.32979 3.63203 8.02979 3.9987 8.02979H7.33203V4.69645C7.33203 4.32979 7.63203 4.02979 7.9987 4.02979C8.36536 4.02979 8.66536 4.32979 8.66536 4.69645V8.02979H11.9987C12.3654 8.02979 12.6654 8.32979 12.6654 8.69645C12.6654 9.06312 12.3654 9.36312 11.9987 9.36312Z"
+              fill="#767676"
+            />
+          </svg>
+        )}
+      </div>
       {list.map((value, index) => (
         <User key={index} value={value} userType={userType} type={type} />
       ))}
@@ -397,15 +489,12 @@ const User = ({ value, userType, type }) => {
     try {
       const accessToken = localStorage.getItem("access_token");
 
-      const response = await axios.delete(
-        `http://3.79.237.102/user/${value.user_id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            accept: "application/json",
-          },
-        }
-      );
+      const response = await axios.delete(`${API_URL}/user/${value.user_id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          accept: "application/json",
+        },
+      });
 
       window.location.reload();
     } catch (error) {
@@ -421,7 +510,7 @@ const User = ({ value, userType, type }) => {
       formData.append("role", isLeader ? "leader" : "publisher");
 
       const response = await axios.put(
-        `http://3.79.237.102/user/${value.user_id}`,
+        `${API_URL}/user/${value.user_id}`,
         formData,
         {
           headers: {
@@ -558,13 +647,9 @@ const AddTeamPopup = ({ close }) => {
         "Content-Type": "multipart/form-data",
       };
 
-      const response = await axios.post(
-        "http://3.79.237.102/groups/",
-        formData,
-        {
-          headers,
-        }
-      );
+      const response = await axios.post(`${API_URL}groups/`, formData, {
+        headers,
+      });
 
       console.log("Group added successfully:", response.data);
 
@@ -646,6 +731,190 @@ const AddTeamPopup = ({ close }) => {
 
         <div className={styles.popupButton}>
           <Button onClick={handleAddGroup}>Add Group</Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const CreateUserPopup = ({ close, groupID }) => {
+  const fileInputRef = useRef(null);
+  const [imagePreview, setImagePreview] = useState(DefaultImage);
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+
+  const { handleError } = useErrorContext();
+
+  const [loading, setLoading] = useState(false);
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imageUrl = event.target.result;
+        setImagePreview(imageUrl);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleUserNameChange = (e) => {
+    setUserName(e.target.value);
+  };
+  const handleUserEmailChange = (e) => {
+    setUserEmail(e.target.value);
+  };
+  const handleUserPasswordChange = (e) => {
+    setUserPassword(e.target.value);
+  };
+
+  const handleAddGroup = async () => {
+    if (loading) return;
+
+    try {
+      if (
+        !userName ||
+        !userEmail ||
+        !userPassword ||
+        !fileInputRef.current.files[0]
+      ) {
+        alert("Please fill in all inputs.");
+        return;
+      }
+
+      setLoading(true);
+
+      const token = localStorage.getItem("access_token");
+
+      const formData = new FormData();
+      const randomFileName = generateRandomString(20);
+
+      formData.append("username", userName);
+      formData.append("email", userEmail);
+      formData.append("password", userPassword);
+      formData.append("role", "publisher");
+      formData.append("group_id", groupID);
+
+      formData.append(
+        "profile_photo",
+        fileInputRef.current.files[0],
+        randomFileName
+      );
+
+      const headers = {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      };
+
+      const response = await axios.post(`${API_URL}user/`, formData, {
+        headers,
+      });
+
+      console.log("Group added successfully:", response.data);
+
+      setUserName("");
+      setUserEmail("");
+      setUserPassword("");
+      setImagePreview(DefaultImage);
+      setLoading(false);
+
+      window.location.reload();
+    } catch (error) {
+      handleError(error);
+      setLoading(false);
+    }
+  };
+
+  const handleClickUpload = () => {
+    fileInputRef.current.click();
+  };
+
+  return (
+    <div className={styles.teamPopupOverlay}>
+      <div className={styles.teamPopup}>
+        <svg
+          className={styles.closePopup}
+          onClick={close}
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z"
+            fill="#1A1A1A"
+          />
+        </svg>
+
+        <div className={styles.popupLabel}>Create user</div>
+        <div className={styles.popupOptionLabel}>User Avatar</div>
+
+        <div className={styles.imageBox} onClick={handleClickUpload}>
+          <div className={styles.imageWrapper}>
+            <img src={imagePreview} alt="" />
+          </div>
+          <div className={styles.imageBoxInfo}>
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.5 8.25V10.5H1.5V8.25H0V10.5C0 11.325 0.675 12 1.5 12H10.5C11.325 12 12 11.325 12 10.5V8.25H10.5ZM2.25 3.75L3.3075 4.8075L5.25 2.8725V9H6.75V2.8725L8.6925 4.8075L9.75 3.75L6 0L2.25 3.75Z"
+                fill="#1A1A1A"
+              />
+            </svg>
+            <div>Upload photo</div>
+
+            <input
+              type="file"
+              id="fileInput"
+              ref={fileInputRef}
+              onChange={handleImageUpload}
+              style={{ display: "none" }}
+            />
+          </div>
+        </div>
+
+        <div>
+          <div className={styles.popupOptionLabel}>User name</div>
+
+          <input
+            type="text"
+            placeholder="Enter user name"
+            value={userName}
+            onChange={handleUserNameChange}
+          />
+        </div>
+        <div>
+          <div className={styles.popupOptionLabel}>User email</div>
+
+          <input
+            type="text"
+            placeholder="Enter user email"
+            value={userEmail}
+            onChange={handleUserEmailChange}
+          />
+        </div>
+        <div>
+          <div className={styles.popupOptionLabel}>User password</div>
+
+          <input
+            type="password"
+            placeholder="Enter user password"
+            value={userPassword}
+            onChange={handleUserPasswordChange}
+          />
+        </div>
+
+        <div className={styles.popupButton}>
+          <Button onClick={handleAddGroup}>Add User</Button>
         </div>
       </div>
     </div>

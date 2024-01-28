@@ -39,7 +39,7 @@ const AboutUs = () => {
           </div>
           <div>
             <div className={styles.detailsLabel}>Main office</div>
-            <div className={styles.detailsData}>Larnaca</div>
+            <div className={styles.detailsData}>Krakau</div>
           </div>
         </div>
       </div>

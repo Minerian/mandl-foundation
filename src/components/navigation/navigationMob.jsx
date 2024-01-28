@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "../../assets/logo.svg";
+import Logo from "../../assets/maindlLogo.png";
 import styles from "./navigationMob.module.css";
 import Button from "../button/button";
 
@@ -40,7 +40,9 @@ const NavigationMob = () => {
       >
         <div className="container">
           <div className={styles.buttons}>
-            <Button>Become a partner</Button>
+            <Link to="https://calendly.com/maindlfoundation/partner">
+              <Button>Become a Partner today</Button>
+            </Link>
             <Link to="/login">
               <Button>Login</Button>
             </Link>

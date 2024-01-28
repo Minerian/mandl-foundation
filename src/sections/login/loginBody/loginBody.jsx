@@ -89,12 +89,12 @@ const LoginBody = () => {
         <Button onClick={handleLogin}>Login</Button>
       </div>
 
-      <div className={styles.textLine}>
+      {/* <div className={styles.textLine}>
         <span>Forgot Password</span>
       </div>
       <div className={styles.textLine}>
         Don’t have an account? <span>Sign up</span>
-      </div>
+      </div> */}
     </div>
   );
 };

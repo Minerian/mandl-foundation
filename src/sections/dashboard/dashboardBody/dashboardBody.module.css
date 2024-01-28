@@ -225,6 +225,7 @@
 .popupOptionLabel {
   font-size: 1.4rem;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .popupLabel {
@@ -279,4 +280,27 @@
 }
 
 .popupButton > div {
+}
+
+.userCreateRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 1.5rem;
+}
+
+.userCreateRow svg {
+  cursor: pointer !important;
+}
+
+.deleteGroupBtn {
+  font-size: 1.2rem;
+  background-color: #88acb2;
+  color: white;
+  margin-right: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  cursor: pointer;
 }

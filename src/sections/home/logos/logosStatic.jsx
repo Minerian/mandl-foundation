@@ -13,11 +13,6 @@ const LogosStatic = ({ list = [], title }) => {
             <img src={item} />
           ))}
         </div>
-        <div className={`${styles.logosGroup} ${styles.logosGroup2}`}>
-          {list.map((item) => (
-            <img src={item} />
-          ))}
-        </div>
       </div>
     </div>
   );

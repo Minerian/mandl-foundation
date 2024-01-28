@@ -1,7 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./dashboardHeader.module.css";
 
 import Logo from "../../../assets/logo.svg";
+import { useRef, useState } from "react";
+import { API_URL } from "../../../const/apiUrl";
+import axios from "axios";
 
 const DashboardHeader = ({ user, type, setType }) => {
   return (
@@ -15,13 +18,6 @@ const DashboardHeader = ({ user, type, setType }) => {
           <img className={styles.logo} src={Logo} alt="" />
         ) : (
           <div
-            onClick={() => {
-              if (user.role === "admin") {
-                setType("admin");
-              } else if (user.role === "leader") {
-                setType("leader");
-              }
-            }}
             style={{
               cursor:
                 user.role === "admin" || user.role === "leader"
@@ -29,7 +25,16 @@ const DashboardHeader = ({ user, type, setType }) => {
                   : "",
             }}
           >
-            <UserInfo user={user} />
+            <UserInfo
+              user={user}
+              onClick={() => {
+                if (user.role === "admin") {
+                  setType("admin");
+                } else if (user.role === "leader") {
+                  setType("leader");
+                }
+              }}
+            />
           </div>
         )}
       </div>
@@ -74,19 +79,84 @@ const DashboardHeader = ({ user, type, setType }) => {
 
 export default DashboardHeader;
 
-export const UserInfo = ({ user }) => {
+export const UserInfo = ({ user, onClick }) => {
+  const navigate = useNavigate();
+
+  const actionRef = useRef(null);
+  const [action, setAction] = useState(false);
+
+  const handleAction = () => {
+    const handleClickOutside = (event) => {
+      if (actionRef.current && !actionRef.current.contains(event.target)) {
+        setAction(false);
+        document.removeEventListener("click", handleClickOutside);
+      }
+    };
+
+    setAction((prev) => {
+      if (!prev) {
+        setTimeout(() => {
+          document.addEventListener("click", handleClickOutside);
+        }, 10);
+      }
+
+      return true;
+    });
+  };
+
+  const handleLogout = async () => {
+    const authToken = localStorage.getItem("access_token");
+
+    if (authToken) {
+      localStorage.removeItem("access_token");
+
+      navigate("/");
+    }
+  };
+
   return (
-    <>
-      {user.profile_image_path && (
-        <div className={styles.profileImage}>
-          <img src={`${user.profile_image_path}`} alt="" />
+    <div className={styles.userProfilInfo}>
+      <div onClick={onClick}>
+        {user.profile_image_path && (
+          <div className={styles.profileImage}>
+            <img src={`${user.profile_image_path}`} alt="" />
+          </div>
+        )}
+
+        <div>
+          <div className={styles.name}>{user.username}</div>
+          <div className={styles.email}>{user.email}</div>
+        </div>
+      </div>
+
+      <svg
+        onClick={handleAction}
+        width="16"
+        height="17"
+        viewBox="0 0 16 17"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M8.0013 5.52946C8.73464 5.52946 9.33464 4.92946 9.33464 4.19613C9.33464 3.46279 8.73464 2.86279 8.0013 2.86279C7.26797 2.86279 6.66797 3.46279 6.66797 4.19613C6.66797 4.92946 7.26797 5.52946 8.0013 5.52946ZM8.0013 6.86279C7.26797 6.86279 6.66797 7.46279 6.66797 8.19613C6.66797 8.92946 7.26797 9.52946 8.0013 9.52946C8.73464 9.52946 9.33464 8.92946 9.33464 8.19613C9.33464 7.46279 8.73464 6.86279 8.0013 6.86279ZM8.0013 10.8628C7.26797 10.8628 6.66797 11.4628 6.66797 12.1961C6.66797 12.9295 7.26797 13.5295 8.0013 13.5295C8.73464 13.5295 9.33464 12.9295 9.33464 12.1961C9.33464 11.4628 8.73464 10.8628 8.0013 10.8628Z"
+          fill="#1A1A1A"
+        />
+      </svg>
+
+      {action && (
+        <div ref={actionRef} className={styles.logoutPopup}>
+          <div onClick={handleLogout}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="#000000"
+              viewBox="0 0 256 256"
+            >
+              <path d="M116,216a12,12,0,0,1-12,12H48a20,20,0,0,1-20-20V48A20,20,0,0,1,48,28h56a12,12,0,0,1,0,24H52V204h52A12,12,0,0,1,116,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L187,116H104a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,224.49,119.51Z"></path>
+            </svg>
+            <div>Logout</div>
+          </div>
         </div>
       )}
-
-      <div>
-        <div className={styles.name}>{user.username}</div>
-        <div className={styles.email}>{user.email}</div>
-      </div>
-    </>
+    </div>
   );
 };

@@ -46,7 +46,7 @@ const Footer = () => {
           </div>
           <div className={styles.item}>
             <div className={styles.itemTitle}>Contact</div>
-            <div className={styles.itemText}>+35799330721</div>
+            <div className={styles.itemText}>+48889976939</div>
             <div className={styles.itemText}>office@maindl.org</div>
           </div>
         </div>

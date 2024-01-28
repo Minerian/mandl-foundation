@@ -44,26 +44,20 @@
 }
 
 @media (max-width: 500px) {
-  .logosGroupWrapper {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
   .logosGroup {
-    display: flex !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 2.4rem;
     align-items: center;
-    width: max-content;
-    animation-name: move;
-    animation-duration: 100s;
-    animation-timing-function: linear;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
   }
 
   .logosGroup img {
-    width: auto;
-    height: 3.5rem;
+    width: 100%;
+    height: auto;
+  }
+
+  .logosGroup img:nth-child(2) {
+    display: none;
   }
 }
 

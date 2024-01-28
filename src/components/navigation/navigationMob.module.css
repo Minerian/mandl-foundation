@@ -18,7 +18,7 @@
 }
 
 .navigation img {
-  height: 2.5rem;
+  height: 1.7rem;
 }
 
 .hamburgerMenu {
@@ -113,7 +113,7 @@
   justify-content: center;
 }
 
-.buttons > a > div {
+.buttons > a:nth-child(2) > div {
   background-color: var(--light-gray-color);
   color: var(--black-color);
 }

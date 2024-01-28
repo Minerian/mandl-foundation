@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../../components/button/button";
 
 import styles from "./involvedBox.module.css";
@@ -5,6 +6,15 @@ import styles from "./involvedBox.module.css";
 import { motion } from "framer-motion";
 
 const InvolvedBox = () => {
+  const handleEmail = () => {
+    const subject = encodeURIComponent("I want to become a volunteer");
+    const recipient = encodeURIComponent("office@maindl.org");
+
+    const mailtoLink = `mailto:${recipient}?subject=${subject}`;
+
+    window.location.href = mailtoLink;
+  };
+
   return (
     <motion.div
       initial={{
@@ -25,8 +35,10 @@ const InvolvedBox = () => {
           <p>Discover How You Can Contribute to Positive Change.</p>
 
           <div>
-            <Button>Become a partner</Button>
-            <Button>Become a volunteer</Button>
+            <Link to="https://calendly.com/maindlfoundation/partner">
+              <Button>Become a partner</Button>
+            </Link>
+            <Button onClick={handleEmail}>Become a volunteer</Button>
           </div>
         </div>
       </section>

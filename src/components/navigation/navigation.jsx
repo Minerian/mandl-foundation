@@ -66,7 +66,9 @@ const Navigation = () => {
         </div>
 
         <div className={styles.buttons}>
-          <Button>Become a Partner today</Button>
+          <Link to="https://calendly.com/maindlfoundation/partner">
+            <Button>Become a Partner today</Button>
+          </Link>
           <div className={styles.button}>
             <Link to="/login">Login</Link>
           </div>

@@ -70,9 +70,12 @@
     font-size: 1.8rem;
   }
 
-  .footerRight,
-  .footerLeft {
+  .footerRight {
     flex-wrap: wrap;
+  }
+
+  .footerLeft {
+    flex-direction: column;
   }
 
   .footerRight {

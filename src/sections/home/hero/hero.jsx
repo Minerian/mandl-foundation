@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../../../components/button/button";
 import Motion from "../../../components/motion/motion";
 import styles from "./hero.module.css";
@@ -12,7 +13,9 @@ const Hero = ({
         <h1>{title}</h1>
 
         <p>{desc}</p>
-        <Button>Become a Partner today</Button>
+        <Link to="https://calendly.com/maindlfoundation/partner">
+          <Button>Become a Partner today</Button>
+        </Link>
       </Motion>
     </section>
   );

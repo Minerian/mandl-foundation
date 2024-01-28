@@ -20,6 +20,8 @@ const DashLayout = ({ children }) => {
     if (code === 401) {
       localStorage.removeItem("access_token");
       navigate("/login");
+    } else if (error?.response?.data?.detail) {
+      alert(error.response.data.detail);
     } else {
       console.log(error);
     }

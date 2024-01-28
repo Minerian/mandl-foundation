@@ -2,6 +2,7 @@ import styles from "./blogPostBody.module.css";
 
 import DefaultUser from "../../../assets/images/default-user.png";
 import { formatDate } from "../../../components/blogCard/blogCard";
+import { Link } from "react-router-dom";
 
 const BlogPostBody = ({ post, blogPostInfo }) => {
   return (
@@ -35,7 +36,10 @@ const BlogPostBody = ({ post, blogPostInfo }) => {
 
       <div dangerouslySetInnerHTML={{ __html: post }} />
 
-      <div className={styles.button}>
+      <Link
+        className={styles.button}
+        to="https://calendly.com/maindlfoundation/partner"
+      >
         Become a partner
         <svg
           width="28"
@@ -49,7 +53,7 @@ const BlogPostBody = ({ post, blogPostInfo }) => {
             fill="#F5F5F5"
           />
         </svg>
-      </div>
+      </Link>
     </div>
   );
 };
