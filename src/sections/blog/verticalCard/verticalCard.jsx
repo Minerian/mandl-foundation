@@ -3,7 +3,6 @@ import Button from "../../../components/button/button";
 import styles from "./verticalCard.module.css";
 
 const VerticalCard = ({ post }) => {
-  console.log(post);
   return (
     <div className={styles.card}>
       <div className={styles.cardLeft}>

@@ -36,7 +36,7 @@ const ReviewBody = ({ post }) => {
         headers,
       });
 
-      navigate("/dashboard");
+      navigate("/dashboard/user");
     } catch (error) {
       handleError(error);
     }

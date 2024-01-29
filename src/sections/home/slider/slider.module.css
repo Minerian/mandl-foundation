@@ -30,6 +30,8 @@
 
 .title {
   font-size: 3rem;
+  max-width: 50rem;
+  line-height: 110%;
   margin-bottom: 0.8rem;
 }
 

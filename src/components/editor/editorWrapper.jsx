@@ -82,7 +82,6 @@ function EditorWrapper({ html = false }) {
     const edjsParser = edjsHTML();
 
     const htmlContent = edjsParser.parse(data).join("");
-    console.log(title);
 
     if (title.length === 0) {
       return setErrorTitle(true);
@@ -149,7 +148,6 @@ function EditorWrapper({ html = false }) {
         });
 
         const postSlug = response.data.slug;
-        console.log(postSlug);
 
         await axios.put(`${API_URL}posts/publish`, `slug=${postSlug}`, {
           headers: {
@@ -246,7 +244,7 @@ function EditorWrapper({ html = false }) {
             headers: headers,
           });
 
-          navigate("/dashboard");
+          navigate("/dashboard/user");
         } catch (error) {
           handleError(error);
         }
@@ -255,6 +253,28 @@ function EditorWrapper({ html = false }) {
       setPost();
     } else {
       navigate("/dashboard");
+    }
+  };
+
+  const handleDelete = async () => {
+    const token = localStorage.getItem("access_token");
+
+    const slug = queryParams.get("slug");
+
+    const headers = {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json", // Changed to application/json
+    };
+
+    try {
+      const response = await axios.delete(`${API_URL}posts/${slug}`, {
+        headers,
+      });
+
+      navigate("/dashboard");
+    } catch (error) {
+      handleError(error);
     }
   };
 
@@ -277,20 +297,23 @@ function EditorWrapper({ html = false }) {
             </svg>
             Back to dashboard
           </div>
-          <div className={styles.confirm} onClick={handleConfirm}>
-            Confirm{" "}
-            <svg
-              width="14"
-              height="11"
-              viewBox="0 0 14 11"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M4.60039 8.62126L1.45039 5.47126L0.400391 6.52126L4.60039 10.7213L13.6004 1.72126L12.5504 0.671265L4.60039 8.62126Z"
-                fill="#F9F9F9"
-              />
-            </svg>
+          <div className={styles.buttons}>
+            <div onClick={handleDelete}>Delete</div>
+            <div className={styles.confirm} onClick={handleConfirm}>
+              Confirm{" "}
+              <svg
+                width="14"
+                height="11"
+                viewBox="0 0 14 11"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.60039 8.62126L1.45039 5.47126L0.400391 6.52126L4.60039 10.7213L13.6004 1.72126L12.5504 0.671265L4.60039 8.62126Z"
+                  fill="#F9F9F9"
+                />
+              </svg>
+            </div>
           </div>
         </div>
         <div className={`editor ${styles.editor}`}>

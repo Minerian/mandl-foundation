@@ -12,8 +12,6 @@ const BlogSlider = ({ posts }) => {
       try {
         const response = await axios.get(`${API_URL}posts/`);
 
-        console.log(response.data);
-
         setBlogPosts(response.data);
       } catch (error) {
         console.error("Error:", error);
@@ -53,8 +51,6 @@ const BlogSlider = ({ posts }) => {
       direction === "left"
         ? container.scrollLeft - sliderWidth
         : container.scrollLeft + sliderWidth;
-
-    console.log(newPosition + container.offsetWidth, totalWidth);
 
     if (newPosition + container.offsetWidth > totalWidth)
       newPosition = totalWidth;

@@ -62,7 +62,6 @@ const DashboardBody = ({ user, type }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    console.log(token);
 
     const headers = {
       accept: "application/json",
@@ -278,6 +277,7 @@ const DashboardBody = ({ user, type }) => {
           )}
 
           <BlogList
+            edit={tabIndex === 2}
             content={blogPosts.filter((post) =>
               type === "admin"
                 ? post.status === postStatus[1]

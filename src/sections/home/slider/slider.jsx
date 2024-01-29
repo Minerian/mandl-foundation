@@ -13,6 +13,9 @@ import image1 from "../../../assets/images/sliderImage1.jpg";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 import { motion } from "framer-motion";
+import axios from "axios";
+import { API_URL } from "../../../const/apiUrl";
+import { Link } from "react-router-dom";
 
 const content = [
   {
@@ -55,15 +58,23 @@ const content = [
 ];
 
 const Slider = () => {
-  // const [sliderIndex, setSliderIndex] = useState(0);
+  const [blogPosts, setBlogPosts] = useState([]);
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setSliderIndex((prevIndex) => (prevIndex + 1) % content.length);
-  //   }, 3000);
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        const response = await axios.get(`${API_URL}posts/`);
 
-  //   return () => clearInterval(intervalId);
-  // }, []);
+        console.log(response.data.slice(0, 6));
+
+        setBlogPosts(response.data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchBlogPosts();
+  }, []);
 
   return (
     <section className={styles.section}>
@@ -90,16 +101,16 @@ const Slider = () => {
           pagination={true}
           modules={[Autoplay, Pagination]}
         >
-          {content.map((item, index) => (
+          {blogPosts.map((item, index) => (
             <SwiperSlide>
               <div className={styles.sliderItem}>
                 <div className={styles.lines}>
-                  <img src={item.image} alt="" />
+                  <img src={item.cover_photo_path} alt="" />
                 </div>
                 <div className={styles.title}>{item.title}</div>
                 <div className={styles.description}>{item.description}</div>
 
-                <div className={styles.readMore}>
+                <Link to={"/blog/" + item.slug} className={styles.readMore}>
                   Read more{" "}
                   <svg
                     width="19"
@@ -113,7 +124,7 @@ const Slider = () => {
                       fill="#F5F5F5"
                     />
                   </svg>
-                </div>
+                </Link>
 
                 <div className={styles.lines}>
                   {/* {content.map((item, index) => (

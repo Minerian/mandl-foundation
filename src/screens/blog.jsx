@@ -26,8 +26,6 @@ const Blog = () => {
   }, []);
 
   const fetchBlogPosts = async (category) => {
-    console.log(category);
-
     const url =
       category !== "Medicine" &&
       category !== "Humanitarian aid" &&

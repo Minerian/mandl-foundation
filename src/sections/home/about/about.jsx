@@ -19,7 +19,7 @@ const About = () => {
 
   const handleChangeSlide = (slide) => {
     if (slide < 1 || slide > 3) return;
-    console.log(slide);
+
     setSliderIndex(slide);
     const container = sliderRef.current;
 

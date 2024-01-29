@@ -10,12 +10,13 @@ export const formatDate = (dateString) => {
   return date.toLocaleDateString(undefined, options).replace(/\//g, ".");
 };
 
-const BlogCard = ({ item = "" }) => {
+const BlogCard = ({ item = "", edit = false }) => {
+  console.log(item.status, edit);
   return (
     <>
       <Link
         to={
-          item.status === "draft"
+          item.status === "draft" || edit
             ? "/create-blog?slug=" + item.slug
             : item.status === "submited_to_leader" ||
               item.status === "submited_to_admin"

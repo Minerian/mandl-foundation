@@ -80,7 +80,6 @@ const EDITOR_JS_TOOLS = {
           })
             .then((r) => r.json())
             .then((data) => {
-              console.log(data);
               return {
                 success: 1,
                 file: {

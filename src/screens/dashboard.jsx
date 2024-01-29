@@ -13,7 +13,6 @@ const Dashboard = ({ layout }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log("ll");
     const token = localStorage.getItem("access_token");
 
     const headers = {

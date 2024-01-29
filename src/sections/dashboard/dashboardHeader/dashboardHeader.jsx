@@ -8,7 +8,6 @@ const DashboardHeader = ({ user, type }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(type);
     if (type !== user.role && user.role !== "publisher" && type !== "user") {
       navigate("/dashboard/");
     }

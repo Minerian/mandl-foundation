@@ -23,7 +23,6 @@ const DashLayout = ({ children }) => {
     } else if (error?.response?.data?.detail) {
       alert(error.response.data.detail);
     } else {
-      console.log(error);
     }
   };
 
