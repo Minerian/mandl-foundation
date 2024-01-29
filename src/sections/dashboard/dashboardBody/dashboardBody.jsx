@@ -21,10 +21,12 @@ const postStatus = [
   "submited_to_leader",
 ];
 
-const DashboardBody = ({ user, type, setType }) => {
+const DashboardBody = ({ user, type }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const [group, setGroup] = useState([]);
   const [allGroup, setAllGroup] = useState([]);
+
+  const [userProfileInfo, setUserProfileInfo] = useState([]);
 
   const [groupInfo, setGroupInfo] = useState({});
 
@@ -34,6 +36,8 @@ const DashboardBody = ({ user, type, setType }) => {
 
   const location = useLocation();
   const { pathname } = location;
+
+  const navigate = useNavigate();
 
   const fetchBlogPosts = async () => {
     const url = `${API_URL}posts/`;
@@ -52,89 +56,69 @@ const DashboardBody = ({ user, type, setType }) => {
 
   useEffect(() => {
     fetchBlogPosts();
-  }, []);
+  }, [type]);
 
   const { handleError } = useErrorContext();
 
   useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    console.log(token);
+
+    const headers = {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+
     if (type === "admin") {
-      const makeApiCall = async () => {
-        try {
-          const token = localStorage.getItem("access_token");
+      axios
+        .post(
+          `${API_URL}groups/groupping`,
+          {},
+          {
+            headers,
+          }
+        )
+        .then((response) => setGroup(response.data))
+        .catch((error) => handleError(error));
 
-          const headers = {
-            accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          };
-
-          const response = await axios.post(
-            `${API_URL}groups/groupping`,
-            {},
-            {
-              headers,
-            }
-          );
-
-          console.log(response.data);
-          setGroup(response.data);
-
-          const response2 = await axios.get(`${API_URL}/groups/`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              accept: "application/json",
-            },
-          });
-
-          setAllGroup(response2.data);
-        } catch (error) {
-          handleError(error);
-        }
-      };
-
-      makeApiCall();
+      axios
+        .get(`${API_URL}groups/`, {
+          headers,
+        })
+        .then((response) => setAllGroup(response.data))
+        .catch((error) => handleError(error));
     } else if (type === "leader") {
-      const handleGetGroup = async () => {
-        try {
-          const accessToken = localStorage.getItem("access_token");
+      axios
+        .get(`${API_URL}groups/${user.group_id}`, {
+          headers,
+        })
+        .then((response) => setGroupInfo(response.data))
+        .catch((error) => handleError(error));
 
-          const response = await axios.get(
-            `${API_URL}/groups/${user.group_id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-                accept: "application/json",
-              },
-            }
-          );
-
-          console.log(response.data);
-          setGroupInfo(response.data);
-        } catch (error) {
-          console.error("Error retrieving group:", error.response.data);
-        }
-      };
-
-      const handleGetUsers = async () => {
-        try {
-          const accessToken = localStorage.getItem("access_token");
-
-          const response = await axios.get(`${API_URL}/user/`, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              accept: "application/json",
-            },
-          });
-
-          setGroup(response.data);
-        } catch (error) {
-          handleError(error);
-        }
-      };
-
-      handleGetGroup();
-      handleGetUsers();
+      axios
+        .get(`${API_URL}user/`, {
+          headers,
+        })
+        .then((response) => setGroup(response.data))
+        .catch((error) => handleError(error));
     }
-  }, []);
+  }, [type]);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("access_token");
+
+    axios
+      .get(`${API_URL}user/`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        setUserProfileInfo(response.data);
+      });
+  }, [type]);
 
   return (
     <>
@@ -183,21 +167,29 @@ const DashboardBody = ({ user, type, setType }) => {
                 if (matchingGroup) {
                   return (
                     <Group
+                      user={user}
                       keyLabel={key}
                       key={key}
                       values={values}
                       type={type}
                       groupID={matchingGroup.id}
+                      userProfileInfo={userProfileInfo.filter(
+                        (item) => item.group_id === matchingGroup.id
+                      )}
                     />
                   );
                 } else {
                   return (
                     <Group
+                      user={user}
                       keyLabel={key}
                       key={key}
                       values={values}
                       type={type}
-                      groupID={null} // ili neki podrazumevani ID
+                      userProfileInfo={userProfileInfo.filter(
+                        (item) => item.group_id === null
+                      )}
+                      groupID={null}
                     />
                   );
                 }
@@ -205,7 +197,10 @@ const DashboardBody = ({ user, type, setType }) => {
             </div>
 
             <div className={styles.adminProfile}>
-              <UserInfo user={user} onClick={() => setType("user")} />
+              <UserInfo
+                user={user}
+                onClick={() => navigate("/dashboard/user")}
+              />
             </div>
           </div>
         )}
@@ -229,14 +224,14 @@ const DashboardBody = ({ user, type, setType }) => {
                 <div>Team members</div>
               </div>
 
-              <Group values={group} type={type} />
+              <Group values={group} type={type} user={user} />
             </div>
 
-            <div
-              className={styles.adminProfile}
-              onClick={() => setType("user")}
-            >
-              <UserInfo user={user} />
+            <div className={styles.adminProfile}>
+              <UserInfo
+                user={user}
+                onClick={() => navigate("/dashboard/user")}
+              />
             </div>
           </div>
         )}
@@ -284,8 +279,10 @@ const DashboardBody = ({ user, type, setType }) => {
 
           <BlogList
             content={blogPosts.filter((post) =>
-              type === "admin" || type === "leader"
-                ? post.status === postStatus[1] || post.status === postStatus[3]
+              type === "admin"
+                ? post.status === postStatus[1]
+                : type === "leader"
+                ? post.status === postStatus[3]
                 : tabIndex === 1
                 ? (post.status === postStatus[tabIndex] ||
                     post.status === postStatus[3]) &&
@@ -304,7 +301,7 @@ const DashboardBody = ({ user, type, setType }) => {
 
 export default DashboardBody;
 
-const Group = ({ keyLabel, values, type, groupID }) => {
+const Group = ({ keyLabel, values, type, groupID, userProfileInfo, user }) => {
   const { handleError } = useErrorContext();
   const [open, setOpen] = useState(false);
 
@@ -328,8 +325,6 @@ const Group = ({ keyLabel, values, type, groupID }) => {
     } catch (error) {
       handleError(error);
     }
-
-    console.log(keyLabel);
   };
 
   return (
@@ -359,19 +354,30 @@ const Group = ({ keyLabel, values, type, groupID }) => {
             </svg>
           </div>
         )}
-        {(open || type !== "admin") && (
+        {(open || (user.role === "leader" && user.role === type)) && (
           <div className={styles.groupList}>
+            <UserItem
+              list={values.filter((value) => value.role === "admin")}
+              userType={"admin"}
+              type={type}
+              keyLabel={keyLabel}
+              userProfileInfo={userProfileInfo}
+            />
             <UserItem
               list={values.filter((value) => value.role === "leader")}
               userType={"leader"}
               type={type}
+              keyLabel={keyLabel}
+              userProfileInfo={userProfileInfo}
             />
             <UserItem
-              list={values.filter((value) => value.role !== "leader")}
+              list={values.filter((value) => value.role === "publisher")}
               userType={"Researchers"}
               type={type}
               groupID={groupID}
+              keyLabel={keyLabel}
               setCreateUser={setCreateUser}
+              userProfileInfo={userProfileInfo}
             />
           </div>
         )}
@@ -389,13 +395,37 @@ const Group = ({ keyLabel, values, type, groupID }) => {
   );
 };
 
-const UserItem = ({ list = [], type, userType, setCreateUser, groupID }) => {
+const UserItem = ({
+  list = [],
+  type,
+  userType,
+  setCreateUser,
+  keyLabel,
+  userProfileInfo,
+}) => {
   return (
     <>
       <div className={styles.userCreateRow}>
-        {(list.length > 0 || userType !== "leader") && (
+        {(list.length > 0 ||
+          (userType !== "leader" && userType !== "admin")) && (
           <div className={styles.userLabel}>
-            {userType === "leader" ? (
+            {userType === "admin" ? (
+              <>
+                <svg
+                  width="10"
+                  height="12"
+                  viewBox="0 0 10 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4.90667 1.863L4.96 2.123L5.17333 3.19633H8.66667V7.19633H6.42667L6.37333 6.93633L6.16 5.863H1.33333V1.863H4.90667ZM6 0.529663H0V11.863H1.33333V7.19633H5.06667L5.33333 8.52966H10V1.863H6.26667L6 0.529663Z"
+                    fill="#767676"
+                  />
+                </svg>
+                Admin
+              </>
+            ) : userType === "leader" ? (
               <>
                 <svg
                   width="10"
@@ -435,31 +465,44 @@ const UserItem = ({ list = [], type, userType, setCreateUser, groupID }) => {
           </div>
         )}
 
-        {type !== "leader" && (
-          <svg
-            onClick={() => setCreateUser(true)}
-            width="16"
-            height="17"
-            viewBox="0 0 16 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect y="0.696289" width="16" height="16" rx="3" fill="#ECECEC" />
-            <path
-              d="M11.9987 9.36312H8.66536V12.6965C8.66536 13.0631 8.36536 13.3631 7.9987 13.3631C7.63203 13.3631 7.33203 13.0631 7.33203 12.6965V9.36312H3.9987C3.63203 9.36312 3.33203 9.06312 3.33203 8.69645C3.33203 8.32979 3.63203 8.02979 3.9987 8.02979H7.33203V4.69645C7.33203 4.32979 7.63203 4.02979 7.9987 4.02979C8.36536 4.02979 8.66536 4.32979 8.66536 4.69645V8.02979H11.9987C12.3654 8.02979 12.6654 8.32979 12.6654 8.69645C12.6654 9.06312 12.3654 9.36312 11.9987 9.36312Z"
-              fill="#767676"
-            />
-          </svg>
-        )}
+        {type !== "leader" &&
+          keyLabel !== "without_group" &&
+          userType !== "leader" &&
+          userType !== "admin" && (
+            <svg
+              onClick={() => setCreateUser(true)}
+              width="16"
+              height="17"
+              viewBox="0 0 16 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect y="0.696289" width="16" height="16" rx="3" fill="#ECECEC" />
+              <path
+                d="M11.9987 9.36312H8.66536V12.6965C8.66536 13.0631 8.36536 13.3631 7.9987 13.3631C7.63203 13.3631 7.33203 13.0631 7.33203 12.6965V9.36312H3.9987C3.63203 9.36312 3.33203 9.06312 3.33203 8.69645C3.33203 8.32979 3.63203 8.02979 3.9987 8.02979H7.33203V4.69645C7.33203 4.32979 7.63203 4.02979 7.9987 4.02979C8.36536 4.02979 8.66536 4.32979 8.66536 4.69645V8.02979H11.9987C12.3654 8.02979 12.6654 8.32979 12.6654 8.69645C12.6654 9.06312 12.3654 9.36312 11.9987 9.36312Z"
+                fill="#767676"
+              />
+            </svg>
+          )}
       </div>
       {list.map((value, index) => (
-        <User key={index} value={value} userType={userType} type={type} />
+        <User
+          key={index}
+          value={value}
+          userType={userType}
+          type={type}
+          userProfileInfo={
+            userProfileInfo
+              ? userProfileInfo.filter((item) => item.id === value.user_id)
+              : [value]
+          }
+        />
       ))}
     </>
   );
 };
 
-const User = ({ value, userType, type }) => {
+const User = ({ value, userType, type, userProfileInfo }) => {
   const [action, setAction] = useState(false);
 
   const actionRef = useRef(null);
@@ -489,7 +532,7 @@ const User = ({ value, userType, type }) => {
     try {
       const accessToken = localStorage.getItem("access_token");
 
-      const response = await axios.delete(`${API_URL}/user/${value.user_id}`, {
+      const response = await axios.delete(`${API_URL}user/${value.user_id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           accept: "application/json",
@@ -510,7 +553,7 @@ const User = ({ value, userType, type }) => {
       formData.append("role", isLeader ? "leader" : "publisher");
 
       const response = await axios.put(
-        `${API_URL}/user/${value.user_id}`,
+        `${API_URL}user/${value.user_id}`,
         formData,
         {
           headers: {
@@ -521,7 +564,30 @@ const User = ({ value, userType, type }) => {
         }
       );
 
-      console.log("Promotion successful:", response.data);
+      window.location.reload();
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
+  const handlePromoteToAdmin = async (isAdmin) => {
+    try {
+      const accessToken = localStorage.getItem("access_token");
+
+      const formData = new FormData();
+      formData.append("role", isAdmin ? "admin" : "leader");
+
+      const response = await axios.put(
+        `${API_URL}user/${value.user_id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            accept: "application/json",
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       window.location.reload();
     } catch (error) {
@@ -533,7 +599,14 @@ const User = ({ value, userType, type }) => {
     <div className={styles.groupUser}>
       <div>
         <div className={styles.avatar}>
-          <img src={value.avatar ? value.avatar : DefaultUser} alt="" />
+          <img
+            src={
+              userProfileInfo[0]?.profile_image_path
+                ? userProfileInfo[0]?.profile_image_path
+                : DefaultUser
+            }
+            alt=""
+          />
         </div>
         <p>{value.username}</p>
       </div>
@@ -557,6 +630,20 @@ const User = ({ value, userType, type }) => {
       {action && (
         <div className={styles.changeStatus} ref={actionRef}>
           {
+            <div onClick={() => handlePromoteToAdmin(userType !== "admin")}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="15"
+                height="15"
+                fill="#000000"
+                viewBox="0 0 256 256"
+              >
+                <path d="M244,120a52.06,52.06,0,0,0-52-52H152.32c-3.44-.21-52.6-4-99.46-43.3A20,20,0,0,0,20,40V200a19.8,19.8,0,0,0,11.54,18.12,19.86,19.86,0,0,0,21.32-2.81A192.92,192.92,0,0,1,136,174.47v26.2a20,20,0,0,0,8.9,16.64,11.35,11.35,0,0,0,1.39.8l14.44,7.06A20,20,0,0,0,190.37,213l11.09-41.82A52.07,52.07,0,0,0,244,120ZM44,191.63V48.4c36.17,28.07,72.17,38.1,92,41.66V150C116.17,153.52,80.17,163.55,44,191.63ZM168.39,202.2,160,198.1V172h16.4ZM192,148H160V92h32a28,28,0,1,1,0,56Z"></path>
+              </svg>
+              {userType !== "admin" ? "Make" : "Remove"} a Admin
+            </div>
+          }
+          {userType !== "admin" && (
             <div onClick={() => handlePromote(userType !== "leader")}>
               <svg
                 width="11"
@@ -572,7 +659,7 @@ const User = ({ value, userType, type }) => {
               </svg>
               {userType !== "leader" ? "Make" : "Remove"} a leader
             </div>
-          }
+          )}
           <div onClick={handleRemove}>
             <svg
               width="15"
@@ -650,8 +737,6 @@ const AddTeamPopup = ({ close }) => {
       const response = await axios.post(`${API_URL}groups/`, formData, {
         headers,
       });
-
-      console.log("Group added successfully:", response.data);
 
       setGroupName("");
       setImagePreview(DefaultImage);
@@ -774,12 +859,7 @@ const CreateUserPopup = ({ close, groupID }) => {
     if (loading) return;
 
     try {
-      if (
-        !userName ||
-        !userEmail ||
-        !userPassword ||
-        !fileInputRef.current.files[0]
-      ) {
+      if (!userName || !userEmail || !userPassword) {
         alert("Please fill in all inputs.");
         return;
       }
@@ -797,11 +877,13 @@ const CreateUserPopup = ({ close, groupID }) => {
       formData.append("role", "publisher");
       formData.append("group_id", groupID);
 
-      formData.append(
-        "profile_photo",
-        fileInputRef.current.files[0],
-        randomFileName
-      );
+      if (fileInputRef.current.files[0]) {
+        formData.append(
+          "profile_photo",
+          fileInputRef.current.files[0],
+          randomFileName
+        );
+      }
 
       const headers = {
         accept: "application/json",
@@ -812,8 +894,6 @@ const CreateUserPopup = ({ close, groupID }) => {
       const response = await axios.post(`${API_URL}user/`, formData, {
         headers,
       });
-
-      console.log("Group added successfully:", response.data);
 
       setUserName("");
       setUserEmail("");

@@ -259,63 +259,71 @@ function EditorWrapper({ html = false }) {
   };
 
   return (
-    <div className={styles.editorWrapper}>
-      <div className={styles.header}>
-        <div onClick={handleDraft}>
-          <svg
-            width="8"
-            height="13"
-            viewBox="0 0 8 13"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7.70492 2.10629L6.29492 0.696289L0.294922 6.69629L6.29492 12.6963L7.70492 11.2863L3.12492 6.69629L7.70492 2.10629Z"
-              fill="black"
-            />
-          </svg>
-          Back to dashboard
+    <>
+      <div className={styles.editorWrapper}>
+        <div className={styles.header}>
+          <div onClick={handleDraft}>
+            <svg
+              width="8"
+              height="13"
+              viewBox="0 0 8 13"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.70492 2.10629L6.29492 0.696289L0.294922 6.69629L6.29492 12.6963L7.70492 11.2863L3.12492 6.69629L7.70492 2.10629Z"
+                fill="black"
+              />
+            </svg>
+            Back to dashboard
+          </div>
+          <div className={styles.confirm} onClick={handleConfirm}>
+            Confirm{" "}
+            <svg
+              width="14"
+              height="11"
+              viewBox="0 0 14 11"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.60039 8.62126L1.45039 5.47126L0.400391 6.52126L4.60039 10.7213L13.6004 1.72126L12.5504 0.671265L4.60039 8.62126Z"
+                fill="#F9F9F9"
+              />
+            </svg>
+          </div>
         </div>
-        <div className={styles.confirm} onClick={handleConfirm}>
-          Confirm{" "}
-          <svg
-            width="14"
-            height="11"
-            viewBox="0 0 14 11"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M4.60039 8.62126L1.45039 5.47126L0.400391 6.52126L4.60039 10.7213L13.6004 1.72126L12.5504 0.671265L4.60039 8.62126Z"
-              fill="#F9F9F9"
-            />
-          </svg>
+        <div className={`editor ${styles.editor}`}>
+          <Editor
+            data={data}
+            onChange={setData}
+            editorblock="editorjs-container"
+            html={html}
+          />
         </div>
-      </div>
-      <div className={`editor ${styles.editor}`}>
-        <Editor
-          data={data}
-          onChange={setData}
-          editorblock="editorjs-container"
-          html={html}
-        />
+
+        {popup && (
+          <EditorPopup
+            setPopup={setPopup}
+            handleSave={handleSave}
+            errorTitle={errorTitle}
+            errorCover={errorCover}
+            title={title}
+            setTitle={setTitle}
+            activeTag={activeTag}
+            setActiveTag={setActiveTag}
+            coverImage={coverImage}
+            setCoverImage={setCoverImage}
+          />
+        )}
       </div>
 
-      {popup && (
-        <EditorPopup
-          setPopup={setPopup}
-          handleSave={handleSave}
-          errorTitle={errorTitle}
-          errorCover={errorCover}
-          title={title}
-          setTitle={setTitle}
-          activeTag={activeTag}
-          setActiveTag={setActiveTag}
-          coverImage={coverImage}
-          setCoverImage={setCoverImage}
-        />
+      {wait && (
+        <div className={styles.loadWrapper}>
+          <span className={styles.loader}></span>
+        </div>
       )}
-    </div>
+    </>
   );
 }
 

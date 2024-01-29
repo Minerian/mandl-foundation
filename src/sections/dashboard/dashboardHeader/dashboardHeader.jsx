@@ -2,11 +2,18 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./dashboardHeader.module.css";
 
 import Logo from "../../../assets/logo.svg";
-import { useRef, useState } from "react";
-import { API_URL } from "../../../const/apiUrl";
-import axios from "axios";
+import { useEffect, useRef, useState } from "react";
 
-const DashboardHeader = ({ user, type, setType }) => {
+const DashboardHeader = ({ user, type }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(type);
+    if (type !== user.role && user.role !== "publisher" && type !== "user") {
+      navigate("/dashboard/");
+    }
+  }, [type, user]);
+
   return (
     <div className={styles.header}>
       <div
@@ -29,9 +36,9 @@ const DashboardHeader = ({ user, type, setType }) => {
               user={user}
               onClick={() => {
                 if (user.role === "admin") {
-                  setType("admin");
+                  navigate("/dashboard/admin");
                 } else if (user.role === "leader") {
-                  setType("leader");
+                  navigate("/dashboard/leader");
                 }
               }}
             />
@@ -116,7 +123,7 @@ export const UserInfo = ({ user, onClick }) => {
 
   return (
     <div className={styles.userProfilInfo}>
-      <div onClick={onClick}>
+      <div onClick={onClick} className={styles.userContentInfo}>
         {user.profile_image_path && (
           <div className={styles.profileImage}>
             <img src={`${user.profile_image_path}`} alt="" />

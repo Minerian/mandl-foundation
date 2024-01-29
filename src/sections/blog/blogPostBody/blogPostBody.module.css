@@ -71,6 +71,15 @@
   color: #767676;
 }
 
+.blogPostContent p {
+  margin: 2rem 0;
+  line-height: 140%;
+}
+
+.blogPostContent img {
+  margin: 0 !important;
+}
+
 @media (max-width: 500px) {
   .blogHeader {
     flex-direction: column;

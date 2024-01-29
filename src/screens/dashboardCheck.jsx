@@ -6,14 +6,14 @@ import { useErrorContext } from "../layout/dashLayout";
 import DashboardHeader from "../sections/dashboard/dashboardHeader/dashboardHeader";
 import DashboardBody from "../sections/dashboard/dashboardBody/dashboardBody";
 
-const Dashboard = ({ layout }) => {
+const DashboardCheck = ({ layout }) => {
   const { handleError } = useErrorContext();
 
   const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("ll");
     const token = localStorage.getItem("access_token");
 
     const headers = {
@@ -26,21 +26,20 @@ const Dashboard = ({ layout }) => {
       .then((response) => {
         setUser(response.data);
 
+        if (response.data.role === "admin") {
+          navigate("/dashboard/admin");
+        } else if (response.data.role === "leader") {
+          navigate("/dashboard/leader");
+        } else {
+          navigate("/dashboard/user");
+        }
+
         setLoading(true);
       })
       .catch((error) => handleError(error));
   }, []);
 
-  return (
-    <>
-      {loading && (
-        <div className="dashboard-body">
-          <DashboardHeader user={user} type={layout} />
-          <DashboardBody user={user} type={layout} />
-        </div>
-      )}
-    </>
-  );
+  return <></>;
 };
 
-export default Dashboard;
+export default DashboardCheck;

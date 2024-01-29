@@ -11,7 +11,6 @@ export const formatDate = (dateString) => {
 };
 
 const BlogCard = ({ item = "" }) => {
-  console.log(item.status);
   return (
     <>
       <Link

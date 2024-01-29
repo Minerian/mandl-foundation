@@ -19,6 +19,7 @@ import Dashboard from "./screens/dashboard";
 import DashLayout from "./layout/dashLayout";
 import CreateBlog from "./screens/createBlog";
 import ReviewBlog from "./screens/reviewBlog";
+import DashboardCheck from "./screens/dashboardCheck";
 
 const router = createHashRouter(
   createRoutesFromElements(
@@ -96,10 +97,34 @@ const router = createHashRouter(
         }
       />
       <Route
-        path="/dashboard"
+        path="/dashboard/"
         element={
           <DashLayout>
-            <Dashboard />
+            <DashboardCheck />
+          </DashLayout>
+        }
+      />
+      <Route
+        path="/dashboard/admin"
+        element={
+          <DashLayout>
+            <Dashboard layout="admin" />
+          </DashLayout>
+        }
+      />
+      <Route
+        path="/dashboard/leader"
+        element={
+          <DashLayout>
+            <Dashboard layout="leader" />
+          </DashLayout>
+        }
+      />
+      <Route
+        path="/dashboard/user"
+        element={
+          <DashLayout>
+            <Dashboard layout="user" />
           </DashLayout>
         }
       />

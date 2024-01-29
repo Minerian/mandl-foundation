@@ -32,9 +32,12 @@ const BlogPostBody = ({ post, blogPostInfo }) => {
         </div>
       </div>
 
-      <h2>{blogPostInfo.title}</h2>
+      {/* <h2>{blogPostInfo.title}</h2> */}
 
-      <div dangerouslySetInnerHTML={{ __html: post }} />
+      <div
+        className={styles.blogPostContent}
+        dangerouslySetInnerHTML={{ __html: post }}
+      />
 
       <Link
         className={styles.button}

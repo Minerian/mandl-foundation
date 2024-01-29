@@ -49,11 +49,12 @@
 }
 
 .editorWrapper p {
-  margin: 0.4rem 0;
+  margin: 2rem 0;
+  line-height: 140%;
 }
 
 .editorWrapper ol {
-  padding: 0.5rem 0;
+  padding: 2rem 0;
 }
 
 .editorWrapper li {
