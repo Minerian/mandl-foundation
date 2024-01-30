@@ -244,7 +244,7 @@ function EditorWrapper({ html = false }) {
             headers: headers,
           });
 
-          navigate("/dashboard/user");
+          navigate("/dashboard/");
         } catch (error) {
           handleError(error);
         }
