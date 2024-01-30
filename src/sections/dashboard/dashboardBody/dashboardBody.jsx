@@ -51,6 +51,8 @@ const DashboardBody = ({ user, type }) => {
 
     const response = await axios.get(url, { headers });
 
+    console.log(response.data);
+
     setBlogPosts(response.data);
   };
 
@@ -118,6 +120,8 @@ const DashboardBody = ({ user, type }) => {
         setUserProfileInfo(response.data);
       });
   }, [type]);
+
+  console.log(blogPosts, group);
 
   return (
     <>
