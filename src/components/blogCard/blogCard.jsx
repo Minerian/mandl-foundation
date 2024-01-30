@@ -11,7 +11,7 @@ export const formatDate = (dateString) => {
 };
 
 const BlogCard = ({ item = "", edit = false }) => {
-  console.log(item.status, edit);
+  console.log(item);
   return (
     <>
       <Link
@@ -46,7 +46,11 @@ const BlogCard = ({ item = "", edit = false }) => {
           <div className={styles.blogCardAuthor}>
             <div className={styles.blogCardAuthorImage}>
               <img
-                src={item.authorImage ? item.authorImage : DefaultUser}
+                src={
+                  item.profile_image_path
+                    ? item.profile_image_path
+                    : DefaultUser
+                }
                 alt=""
               />
             </div>
