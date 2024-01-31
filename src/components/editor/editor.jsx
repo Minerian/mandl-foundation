@@ -35,6 +35,7 @@ const EDITOR_JS_TOOLS = {
 
     config: {
       placeholder: "Tell your story...",
+      preserveBlank: true,
     },
   },
 
@@ -142,7 +143,9 @@ const Editor = ({ data, onChange, editorblock, html }) => {
         const fetchData = async () => {
           try {
             const response = await axios.get(`${API_URL}posts/html/${slug}`);
-            const html = response.data;
+            let html = response.data.replace(/<p><\/p>/g, "<br/>");
+
+            console.log(html);
 
             editor.isReady.then(() => {
               editor.blocks.renderFromHTML(html);

@@ -174,3 +174,7 @@ section {
   grid-template-rows: max-content 1fr;
   height: 100vh;
 }
+
+.global-hidden {
+  opacity: 0;
+}
