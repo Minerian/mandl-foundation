@@ -47,8 +47,8 @@ const BlogCard = ({ item = "", edit = false }) => {
             <div className={styles.blogCardAuthorImage}>
               <img
                 src={
-                  item.profile_image_path
-                    ? item.profile_image_path
+                  item.user.profile_image_path
+                    ? item.user.profile_image_path
                     : DefaultUser
                 }
                 alt=""

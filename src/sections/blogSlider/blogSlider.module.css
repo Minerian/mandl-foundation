@@ -26,7 +26,8 @@
 }
 
 .blogSlider {
-  display: flex;
+  display: grid;
+  grid-template-columns: max-content max-content max-content max-content max-content max-content;
   gap: 2.4rem;
   width: max-content;
 
