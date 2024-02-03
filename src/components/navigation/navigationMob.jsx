@@ -128,8 +128,8 @@ const NavigationMob = () => {
               <div className={styles.navBottomLabel}>Contact</div>
 
               <div className={styles.navBottomSocials}>
-                <div>+38(066)-111-59-21</div>
-                <div>mailmail@gmail.com</div>
+                <div>+48889976939</div>
+                <div>office@maindl.org</div>
               </div>
             </div>
           </div>

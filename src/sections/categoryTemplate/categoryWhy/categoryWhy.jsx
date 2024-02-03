@@ -60,7 +60,15 @@ const content = {
 const CategoryWhy = ({ type }) => {
   return (
     <div className="container">
-      <h2>Why medicine?</h2>
+      <h2>
+        Why{" "}
+        {type === "medicine"
+          ? "medicine"
+          : type === "education"
+          ? "education"
+          : "humanitarian aid"}
+        ?
+      </h2>
 
       <div className={styles.content}>
         {content[type].map((item) => (

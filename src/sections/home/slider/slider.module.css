@@ -26,6 +26,8 @@
   height: 100%;
   object-fit: cover;
   transition: 1s linear;
+
+  filter: brightness(60%);
 }
 
 .title {
