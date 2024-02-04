@@ -20,7 +20,13 @@ const ReviewPost = () => {
     try {
       const slug = pathname.split("/").pop();
 
-      const response = await axios.get(`${API_URL}posts/html/${slug}`);
+      const token = localStorage.getItem("access_token");
+
+      const response = await axios.get(`${API_URL}posts/html/${slug}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setBlogPost(response.data);
     } catch (error) {
