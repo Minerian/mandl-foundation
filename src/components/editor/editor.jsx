@@ -151,8 +151,6 @@ const Editor = ({ data, onChange, editorblock, html }) => {
             });
             let html = response.data.replace(/<p><\/p>/g, "<br/>");
 
-            console.log(html);
-
             editor.isReady.then(() => {
               editor.blocks.renderFromHTML(html);
             });

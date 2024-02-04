@@ -36,7 +36,11 @@ const Blog = () => {
     try {
       const response = await axios.get(url);
 
-      setBlogPosts(response.data);
+      const sortedBlogPosts = response.data.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+
+      setBlogPosts(sortedBlogPosts);
     } catch (error) {
       console.error("Error:", error);
     }

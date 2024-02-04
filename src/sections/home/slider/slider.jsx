@@ -65,7 +65,11 @@ const Slider = () => {
       try {
         const response = await axios.get(`${API_URL}posts/`);
 
-        setBlogPosts(response.data.slice(0, 6));
+        const sortedBlogPosts = response.data.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+
+        setBlogPosts(sortedBlogPosts.slice(0, 6));
       } catch (error) {
         console.error("Error:", error);
       }
