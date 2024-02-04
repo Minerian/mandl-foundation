@@ -142,7 +142,13 @@ const Editor = ({ data, onChange, editorblock, html }) => {
       if (slug) {
         const fetchData = async () => {
           try {
-            const response = await axios.get(`${API_URL}posts/html/${slug}`);
+            const token = localStorage.getItem("access_token");
+
+            const response = await axios.get(`${API_URL}posts/html/${slug}`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
             let html = response.data.replace(/<p><\/p>/g, "<br/>");
 
             console.log(html);
