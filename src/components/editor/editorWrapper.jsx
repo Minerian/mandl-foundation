@@ -56,10 +56,18 @@ function EditorWrapper({ html = false }) {
 
   useEffect(() => {
     const slug = queryParams.get("slug");
+
     if (slug) {
       const fetchData = async () => {
+        const accessToken = localStorage.getItem("access_token");
         try {
-          const responseInfo = await axios.get(`${API_URL}posts/post/${slug}`);
+          const responseInfo = await axios.get(`${API_URL}posts/post/${slug}`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              accept: "application/json",
+              "Content-Type": "multipart/form-data",
+            },
+          });
 
           setTitle(responseInfo.data.title);
 

@@ -19,6 +19,7 @@ const postStatus = [
   "submited_to_admin",
   "published",
   "submited_to_leader",
+  "refused",
 ];
 
 const DashboardBody = ({ user, type }) => {
@@ -53,7 +54,11 @@ const DashboardBody = ({ user, type }) => {
 
     console.log(response.data);
 
-    setBlogPosts(response.data);
+    setBlogPosts(
+      response.data.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      )
+    );
   };
 
   useEffect(() => {
@@ -121,7 +126,7 @@ const DashboardBody = ({ user, type }) => {
       });
   }, [type]);
 
-  console.log(blogPosts, group);
+  console.log(blogPosts, "boban");
 
   return (
     <>
@@ -238,63 +243,86 @@ const DashboardBody = ({ user, type }) => {
             </div>
           </div>
         )}
-        <div className={styles.body}>
-          <h2
-            className={`${
-              type === "admin" || type === "leader" ? styles.adminTitle : ""
-            }`}
-          >
-            {type === "admin" || type === "leader"
-              ? "Awaiting confirmation"
-              : "Your stories"}
-          </h2>
+        <div className={styles.bodyWrapper}>
+          <div className={styles.body}>
+            <h2
+              className={`${
+                type === "admin" || type === "leader" ? styles.adminTitle : ""
+              }`}
+            >
+              {type === "admin" || type === "leader"
+                ? "Awaiting confirmation"
+                : "Your stories"}
+            </h2>
 
-          {type !== "admin" && type !== "leader" && (
-            <div className={styles.tabs}>
-              {tabs.map((item, index) => (
-                <div
-                  className={styles.tab}
-                  onClick={() => setTabIndex(index)}
-                  style={{
-                    borderBottom:
-                      tabIndex === index
-                        ? "1px solid #88ACB2"
-                        : "1px solid transparent",
-                    color: tabIndex === index ? "#88ACB2" : "",
-                  }}
-                >
-                  {item} (
-                  {
-                    blogPosts.filter((post) =>
-                      index === 1
-                        ? (post.status === postStatus[index] ||
-                            post.status === postStatus[3]) &&
-                          post.user_id === user.id
-                        : post.status === postStatus[index] &&
-                          post.user_id === user.id
-                    ).length
-                  }
-                  )
-                </div>
-              ))}
-            </div>
-          )}
-
-          <BlogList
-            edit={tabIndex === 2}
-            content={blogPosts.filter((post) =>
-              type === "admin"
-                ? post.status === postStatus[1]
-                : type === "leader"
-                ? post.status === postStatus[3]
-                : tabIndex === 1
-                ? (post.status === postStatus[tabIndex] ||
-                    post.status === postStatus[3]) &&
-                  post.user_id === user.id
-                : post.status === postStatus[tabIndex] &&
-                  post.user_id === user.id
+            {type !== "admin" && type !== "leader" && (
+              <div className={styles.tabs}>
+                {tabs.map((item, index) => (
+                  <div
+                    className={styles.tab}
+                    onClick={() => setTabIndex(index)}
+                    style={{
+                      borderBottom:
+                        tabIndex === index
+                          ? "1px solid #88ACB2"
+                          : "1px solid transparent",
+                      color: tabIndex === index ? "#88ACB2" : "",
+                    }}
+                  >
+                    {item} (
+                    {
+                      blogPosts.filter((post) =>
+                        index === 0
+                          ? post.status === postStatus[0] ||
+                            post.status === postStatus[4]
+                          : index === 1
+                          ? (post.status === postStatus[index] ||
+                              post.status === postStatus[3]) &&
+                            post.user_id === user.id
+                          : post.status === postStatus[index] &&
+                            post.user_id === user.id
+                      ).length
+                    }
+                    )
+                  </div>
+                ))}
+              </div>
             )}
-          />
+
+            <BlogList
+              edit={type !== "admin" && type !== "leader"}
+              content={blogPosts.filter((post) =>
+                type === "admin"
+                  ? post.status === postStatus[1]
+                  : type === "leader"
+                  ? post.status === postStatus[3]
+                  : tabIndex === 0
+                  ? post.status === postStatus[0] ||
+                    post.status === postStatus[4]
+                  : tabIndex === 1
+                  ? (post.status === postStatus[tabIndex] ||
+                      post.status === postStatus[3]) &&
+                    post.user_id === user.id
+                  : post.status === postStatus[tabIndex] &&
+                    post.user_id === user.id
+              )}
+            />
+
+            {blogPosts.filter((post) => post.status === postStatus[2]).length >
+              0 &&
+              (type === "admin" || type === "leader") && (
+                <>
+                  <h2 className={`${styles.adminTitle}`}>Published stories</h2>
+
+                  <BlogList
+                    edit={true}
+                    content={blogPosts.filter(
+                      (post) => post.status === postStatus[2]
+                    )}
+                  />
+                </>
+              )}
+          </div>
         </div>
       </div>
 

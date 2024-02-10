@@ -47,16 +47,22 @@ const ReviewBody = ({ post }) => {
 
     const slug = pathname.split("/").pop();
 
-    const headers = {
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json", // Changed to application/json
-    };
-
     try {
-      const response = await axios.delete(`${API_URL}posts/${slug}`, {
-        headers,
-      });
+      const response = await axios.put(
+        `${API_URL}posts/refuse`,
+        {
+          slug: slug,
+        },
+        {
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      console.log(response);
 
       navigate("/dashboard");
     } catch (error) {
