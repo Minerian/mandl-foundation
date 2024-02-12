@@ -310,3 +310,42 @@
   text-align: center;
   cursor: pointer;
 }
+
+.searchWrapper {
+  display: flex;
+  margin-top: 3rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.searchWrapper input {
+  border-radius: 0.5rem;
+  width: 40rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background-color: transparent;
+  outline: 0px;
+  font-size: 1.4rem;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  justify-content: flex-end;
+}
+
+.arrows {
+  display: flex;
+  gap: 2rem;
+}
+
+.arrows svg {
+  cursor: pointer;
+
+  width: 0.7rem !important;
+}
+
+.arrows svg:first-child {
+  transform: rotate(180deg);
+}

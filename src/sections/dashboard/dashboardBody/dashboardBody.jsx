@@ -22,6 +22,8 @@ const postStatus = [
   "refused",
 ];
 
+const postsPerPage = 12;
+
 const DashboardBody = ({ user, type }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const [group, setGroup] = useState([]);
@@ -32,6 +34,8 @@ const DashboardBody = ({ user, type }) => {
   const [groupInfo, setGroupInfo] = useState({});
 
   const [blogPosts, setBlogPosts] = useState([]);
+  const [publishedPosts, setPublishedPosts] = useState([]);
+  const [publishedIndex, setPublishedIndex] = useState(0);
 
   const [addTeam, setAddTeam] = useState(false);
 
@@ -52,13 +56,13 @@ const DashboardBody = ({ user, type }) => {
 
     const response = await axios.get(url, { headers });
 
-    console.log(response.data);
-
-    setBlogPosts(
-      response.data.sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at)
-      )
+    const sortData = response.data.sort(
+      (a, b) => new Date(b.created_at) - new Date(a.created_at)
     );
+
+    setBlogPosts(sortData);
+
+    setPublishedPosts(sortData.filter((post) => post.status === postStatus[2]));
   };
 
   useEffect(() => {
@@ -126,7 +130,36 @@ const DashboardBody = ({ user, type }) => {
       });
   }, [type]);
 
-  console.log(blogPosts, "boban");
+  const handleSearch = (e) => {
+    setPublishedIndex(0);
+
+    const searchTerm = e.target.value.toLowerCase();
+    const filteredPosts = blogPosts.filter(
+      (post) => post.status === postStatus[2]
+    );
+
+    setPublishedPosts(
+      filteredPosts.filter((item) =>
+        item.title.toLowerCase().includes(searchTerm)
+      )
+    );
+  };
+
+  const handleChangePage = (dir) => {
+    setPublishedIndex((prev) => {
+      if (dir === "left") {
+        if (prev <= 0) return prev;
+
+        return prev - 1;
+      } else {
+        const nextPrev = prev + 1;
+
+        if (nextPrev >= publishedPosts.length / postsPerPage) return prev;
+
+        return nextPrev;
+      }
+    });
+  };
 
   return (
     <>
@@ -312,14 +345,62 @@ const DashboardBody = ({ user, type }) => {
               0 &&
               (type === "admin" || type === "leader") && (
                 <>
-                  <h2 className={`${styles.adminTitle}`}>Published stories</h2>
+                  <div className={styles.searchWrapper}>
+                    <h2 className={`${styles.adminTitle}`}>
+                      Published stories
+                    </h2>
+
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      onChange={handleSearch}
+                    />
+                  </div>
 
                   <BlogList
                     edit={true}
-                    content={blogPosts.filter(
-                      (post) => post.status === postStatus[2]
+                    content={publishedPosts.slice(
+                      postsPerPage * publishedIndex,
+                      postsPerPage * (publishedIndex + 1)
                     )}
                   />
+
+                  <div className={styles.pagination}>
+                    <p>
+                      {postsPerPage * publishedIndex + 1} -{" "}
+                      {postsPerPage * (publishedIndex + 1) <=
+                      publishedPosts.length
+                        ? postsPerPage * (publishedIndex + 1)
+                        : publishedPosts.length}{" "}
+                      of {publishedPosts.length}
+                    </p>
+
+                    <div className={styles.arrows}>
+                      <svg
+                        onClick={() => handleChangePage("left")}
+                        viewBox="0 0 7 14"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0.996255 0.754652L6.82894 6.58734C6.88317 6.64151 6.92619 6.70583 6.95554 6.77664C6.98489 6.84745 7 6.92335 7 7C7 7.07665 6.98489 7.15255 6.95554 7.22336C6.92619 7.29416 6.88317 7.35849 6.82894 7.41266L0.996255 13.2453C0.88681 13.3548 0.738371 13.4163 0.583592 13.4163C0.428814 13.4163 0.280375 13.3548 0.17093 13.2453C0.0614851 13.1359 5.11356e-09 12.9875 6.95927e-09 12.8327C8.80499e-09 12.6779 0.0614851 12.5295 0.17093 12.42L5.59168 7L0.17093 1.57998C0.116739 1.52579 0.0737515 1.46145 0.0444232 1.39065C0.0150949 1.31984 1.45153e-07 1.24395 1.46067e-07 1.16731C1.46981e-07 1.09068 0.0150949 1.01479 0.0444232 0.943984C0.0737515 0.873178 0.116739 0.808844 0.17093 0.754652C0.225122 0.70046 0.289457 0.657475 0.360261 0.628146C0.431066 0.598818 0.506954 0.583722 0.583593 0.583722C0.660231 0.583722 0.736119 0.598818 0.806924 0.628146C0.877728 0.657475 0.942063 0.70046 0.996255 0.754652Z"
+                          fill="#14213D"
+                        />
+                      </svg>
+
+                      <svg
+                        onClick={() => handleChangePage("right")}
+                        viewBox="0 0 7 14"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0.996255 0.754652L6.82894 6.58734C6.88317 6.64151 6.92619 6.70583 6.95554 6.77664C6.98489 6.84745 7 6.92335 7 7C7 7.07665 6.98489 7.15255 6.95554 7.22336C6.92619 7.29416 6.88317 7.35849 6.82894 7.41266L0.996255 13.2453C0.88681 13.3548 0.738371 13.4163 0.583592 13.4163C0.428814 13.4163 0.280375 13.3548 0.17093 13.2453C0.0614851 13.1359 5.11356e-09 12.9875 6.95927e-09 12.8327C8.80499e-09 12.6779 0.0614851 12.5295 0.17093 12.42L5.59168 7L0.17093 1.57998C0.116739 1.52579 0.0737515 1.46145 0.0444232 1.39065C0.0150949 1.31984 1.45153e-07 1.24395 1.46067e-07 1.16731C1.46981e-07 1.09068 0.0150949 1.01479 0.0444232 0.943984C0.0737515 0.873178 0.116739 0.808844 0.17093 0.754652C0.225122 0.70046 0.289457 0.657475 0.360261 0.628146C0.431066 0.598818 0.506954 0.583722 0.583593 0.583722C0.660231 0.583722 0.736119 0.598818 0.806924 0.628146C0.877728 0.657475 0.942063 0.70046 0.996255 0.754652Z"
+                          fill="#14213D"
+                        />
+                      </svg>
+                    </div>
+                  </div>
                 </>
               )}
           </div>

@@ -5,7 +5,7 @@ const BlogList = ({ content, edit }) => {
   return (
     <div className={styles.blogSlider}>
       {content.map((item) => (
-        <BlogCard item={item} edit={edit} />
+        <BlogCard key={item.id} item={item} edit={edit} />
       ))}
     </div>
   );
