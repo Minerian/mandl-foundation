@@ -60,7 +60,7 @@ const LoginBody = () => {
     <div className={styles.body}>
       <img src={Logo} alt="" />
 
-      <div className={styles.title}>Login to Maindl</div>
+      <div className={styles.title}>Login to Meinor</div>
       <p>Log in to your blog account</p>
 
       <div className={styles.inputs}>

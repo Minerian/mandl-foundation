@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 const InvolvedBox = () => {
   const handleEmail = () => {
     const subject = encodeURIComponent("I want to become a volunteer");
-    const recipient = encodeURIComponent("office@maindl.org");
+    const recipient = encodeURIComponent("office@meinor.org");
 
     const mailtoLink = `mailto:${recipient}?subject=${subject}`;
 
@@ -35,7 +35,7 @@ const InvolvedBox = () => {
           <p>Discover How You Can Contribute to Positive Change.</p>
 
           <div>
-            <Link to="https://calendly.com/maindlfoundation/partner">
+            <Link to="https://calendly.com/meinorfoundation/partner">
               <Button>Become a partner</Button>
             </Link>
             <Button onClick={handleEmail}>Become a volunteer</Button>

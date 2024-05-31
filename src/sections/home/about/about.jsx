@@ -190,7 +190,7 @@ const About = () => {
           <Motion>
             <div>
               Our story unfolds in the lives touched, barriers overcome, and
-              dreams ignited. At Maindl, impact isn't just a goal—it's a way of
+              dreams ignited. At Meinor, impact isn't just a goal—it's a way of
               being. In the heart of our foundation, healthcare is more than
               just treating ailments; it's about reaching communities with vital
               medical care.

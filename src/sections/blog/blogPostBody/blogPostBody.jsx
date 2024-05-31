@@ -41,7 +41,7 @@ const BlogPostBody = ({ post, blogPostInfo }) => {
 
       <Link
         className={styles.button}
-        to="https://calendly.com/maindlfoundation/partner"
+        to="https://calendly.com/meinorfoundation/partner"
       >
         Become a partner
         <svg

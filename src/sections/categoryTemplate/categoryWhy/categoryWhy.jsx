@@ -12,7 +12,7 @@ const content = {
     },
     {
       title: "Medical Equipment Provision",
-      desc: "Access to proper medical equipment is fundamental to quality healthcare. Maindl Foundation is committed to providing essential medical equipment to healthcare facilities in need. Whether it's diagnostic tools, life-saving devices, or infrastructure support, we aim to bridge gaps and enhance the capabilities of medical institutions, enabling them to deliver superior care.",
+      desc: "Access to proper medical equipment is fundamental to quality healthcare. Meinor Foundation is committed to providing essential medical equipment to healthcare facilities in need. Whether it's diagnostic tools, life-saving devices, or infrastructure support, we aim to bridge gaps and enhance the capabilities of medical institutions, enabling them to deliver superior care.",
     },
     {
       title: "Telemedicine Services",

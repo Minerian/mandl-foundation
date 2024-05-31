@@ -13,7 +13,7 @@ const Hero = ({
         <h1>{title}</h1>
 
         <p>{desc}</p>
-        <Link to="https://calendly.com/maindlfoundation/partner">
+        <Link to="https://calendly.com/meinorfoundation/partner">
           <Button>Become a Partner today</Button>
         </Link>
       </Motion>

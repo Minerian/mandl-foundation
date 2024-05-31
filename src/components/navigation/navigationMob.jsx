@@ -40,7 +40,7 @@ const NavigationMob = () => {
       >
         <div className="container">
           <div className={styles.buttons}>
-            <Link to="https://calendly.com/maindlfoundation/partner">
+            <Link to="https://calendly.com/meinorfoundation/partner">
               <Button>Become a Partner today</Button>
             </Link>
             <Link to="/login">
@@ -119,9 +119,15 @@ const NavigationMob = () => {
               <div className={styles.navBottomLabel}>Social</div>
 
               <div className={styles.navBottomSocials}>
-                <div>Youtube</div>
-                <div>Twitter</div>
-                <div>LinkedIn</div>
+                <a
+                  href="https://www.linkedin.com/company/themeinorfoundation/"
+                  target="_blank"
+                >
+                  Linkedin
+                </a>
+                <a href="https://twitter.com/meinorfdn" target="_blank">
+                  Twitter
+                </a>
               </div>
             </div>
             <div className={styles.navBottomRight}>
@@ -129,7 +135,7 @@ const NavigationMob = () => {
 
               <div className={styles.navBottomSocials}>
                 <div>+48889976939</div>
-                <div>office@maindl.org</div>
+                <div>office@meinor.org</div>
               </div>
             </div>
           </div>

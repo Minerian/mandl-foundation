@@ -27,7 +27,7 @@ const AboutUs = () => {
         <div className={styles.details}>
           <div>
             <div className={styles.detailsLabel}>Year of foundation</div>
-            <div className={styles.detailsData}>2023</div>
+            <div className={styles.detailsData}>2024</div>
           </div>
           <div>
             <div className={styles.detailsLabel}>Emploees</div>
@@ -39,7 +39,7 @@ const AboutUs = () => {
           </div>
           <div>
             <div className={styles.detailsLabel}>Main office</div>
-            <div className={styles.detailsData}>Krakau</div>
+            <div className={styles.detailsData}>Cracow</div>
           </div>
         </div>
       </div>
