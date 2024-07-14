@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 const InvolvedBox = () => {
   const handleEmail = () => {
     const subject = encodeURIComponent("I want to become a volunteer");
-    const recipient = encodeURIComponent("office@meinor.org");
+    const recipient = encodeURIComponent("contact@meinor.org");
 
     const mailtoLink = `mailto:${recipient}?subject=${subject}`;
 
