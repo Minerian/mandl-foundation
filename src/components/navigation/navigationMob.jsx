@@ -135,7 +135,7 @@ const NavigationMob = () => {
 
               <div className={styles.navBottomSocials}>
                 <div>+48889976939</div>
-                <div>office@meinor.org</div>
+                <div>contact@meinor.org</div>
               </div>
             </div>
           </div>

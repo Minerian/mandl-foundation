@@ -54,7 +54,7 @@ const Footer = () => {
           <div className={styles.item}>
             <div className={styles.itemTitle}>Contact</div>
             <div className={styles.itemText}>+48889976939</div>
-            <div className={styles.itemText}>office@meinor.org</div>
+            <div className={styles.itemText}>contact@meinor.org</div>
           </div>
         </div>
       </div>
