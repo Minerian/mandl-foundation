@@ -49,7 +49,7 @@ const NavigationMob = () => {
           </div>
           <div className={styles.itemsGroup}>
             <Link to="/about" className={styles.item}>
-              About foundatiion
+              About foundation
             </Link>
             <div className={styles.item}>
               <div
